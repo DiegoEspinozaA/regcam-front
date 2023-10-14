@@ -13,18 +13,16 @@ export default function Navbar() {
     else if (location.pathname === '/estados') {
       setSeleccionado(2);
     }
-
     else if (location.pathname === '/registros') {
       setSeleccionado(3);
     }
     else if (location.pathname === '/recientes') {
       setSeleccionado(4);
     }
-
   }, [location]);
 
   return (
-    <div className="text-sm navbar flex h-[70px] items-center bg-white text-zinc-400 border-b-[1px] border-zinc-400 text-zinc-600">
+    <div className="text-sm navbar flex h-[70px] items-center bg-white text-zinc-400 border-b-[1px] border-zinc-400 text-zinc-600 fixed top-0 w-full z-10">
       <div className="container">
         <div className="opciones">
           <ul className="flex">
@@ -67,7 +65,7 @@ export default function Navbar() {
                 <button
                   className={`${
                     seleccionado === 4 ? "activo " : ""
-                  } flex items-center hover:bg-blue-100 p-2 rounded-lg hover:text-black transition duration-300 ease-in-out`}
+                  } flex items-center hover-bg-blue-100 p-2 rounded-lg hover:text-black transition duration-300 ease-in-out`}
                   onClick={() => setSeleccionado(4)}
                 >
                   <p className="ml-2">Recientes</p>
@@ -76,9 +74,6 @@ export default function Navbar() {
             </li>
           </ul>
         </div>
-        <button>
-          <BiLogOut size={20}></BiLogOut>
-        </button>
       </div>
     </div>
   );

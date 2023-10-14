@@ -93,9 +93,9 @@ function OverlayPage({ numero, locacion, onClose }) {
               </div>
             </div>
 
-            <div className="bg-white shadow-lg border border-gray-300 rounded-lg ">
+            <div className="bg-white shadow-lg border border-gray-300 rounded-lg text-sm">
               <div className="py-4 px-5">
-                <div className="relative text-gray-600 focus-within:text-black font-semibold w-full rounded ">
+                <div className="relative text-gray-600 focus-within:text-black  w-full rounded ">
                   <span className="absolute inset-y-0 left-0 flex items-center pl-2">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -116,21 +116,21 @@ function OverlayPage({ numero, locacion, onClose }) {
                     type="text"
                     className=" py-2 pl-10 focus:ring-1  focus:outline-none border rounded border-gray-300"
                     placeholder="Buscar"
-                    style={{ width: '400px', height: '50px' }}
+                    style={{ width: '400px', height: '45px' }}
                     onChange={(e) => setSearchTerm(e.target.value)}
                   />
                 </div>
               </div>
 
-              <div className="overflow-y-auto min-h-[600px] max-h-[600px] scrollbar-container bg-white rounded-lg">
+              <div className="overflow-y-auto min-h-[600px] max-h-[600px] scrollbar-container bg-white ">
                 <table className="w-full">
                   <thead className='sticky top-0'>
                     <tr className="bg-background-color text-black">
-                      <th className="px-4 py-3 text-left border-b border-t border-l border-gray-300" >Fecha</th>
+                      <th className="px-4 py-3 text-left border-b border-t border-gray-300" >Fecha</th>
                       <th className="px-4 py-3 text-left border-b border-l border-t border-gray-300">Evento</th>
                       <th className="px-4 py-3 text-left border-b border-t border-l border-gray-300" >Descripcion</th>
                       <th className="px-6 py-3 text-left  border-l border-b border-t border-r border-gray-300" >¿Fue notificado?</th>
-                      <th className="px-4 py-3 text-left rounded-tr-lg rounded-br-lg justify-end border-b border-t border-l border-gray-300">Acciones</th>
+                      <th className="px-4 py-3 text-left justify-end border-b border-t border-l border-gray-300">Acciones</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -246,7 +246,7 @@ export default function Registros() {
         {locaciones.map((ubicacion) => (
           <div
             key={ubicacion.locacion}
-            className={`p-4 text-zinc-800  border border-gray-400 shadow-md rounded bg-white ${ubicacionSeleccionada !== ubicacion.locacion ? ' hover:shadow-xl hover:text-black  cursor-pointer transition duration-300 ease-in-out' : ''}`}
+            className={`p-4 text-zinc-800 border border-gray-400 shadow-md rounded bg-white ${ubicacionSeleccionada !== ubicacion.locacion ? ' hover:shadow-xl hover:text-black  cursor-pointer transition duration-300 ease-in-out' : ''}`}
             onClick={ubicacionSeleccionada === ubicacion.locacion ? null : () => handleClick(ubicacion.locacion)}
           >
             <div onClick={ubicacionSeleccionada === ubicacion.locacion ? handleClose : null} className={`flex justify-between ${ubicacionSeleccionada === ubicacion.locacion ? 'cursor-pointer hover:text-red-500 transition duration-100 ease-in-out text-black border-b border-gray-400 ' : ''}`}>
@@ -270,8 +270,8 @@ export default function Registros() {
               </div>
             </div>
             {ubicacionSeleccionada === ubicacion.locacion && (
-              <div className="flex py-3 justify-center w-full ">
-                <div className="grid gap-4 lg:grid-cols-10  md:grid-cols-4 sm:grid-cols-2">
+              <div className="w-full pt-5 pb-2">
+                <div className="grid grid-cols-[repeat(auto-fill,minmax(90px,1fr))] gap-4">
                   {camerasPorLocacion[ubicacionSeleccionada]?.map((camera, index) => (
                     <button
                       key={index}
