@@ -18,7 +18,7 @@ export default function Estados() {
             });
     }, [])
 
-    const elementos = Array.from({ length: 300 }, (_, index) => index + 1);
+    const elementos = Array.from({ length: 10 }, (_, index) => index + 1);
 
     const elementosFiltrados = elementos.filter(elemento => {
         // Filtrar elementos en función del rango (Minimo y Maximo)
@@ -34,7 +34,7 @@ export default function Estados() {
     return (
         <div className='flex align-center justify-center w-full'>
             <div className="text-sm mt-10 text-black flex flex-col justify-center w-[80%] bg-white p-6 shadow-lg rounded border border-gray-300">
-                <div className='flex justify-left '>
+                <div className='flex'>
                     <div className="relative text-gray-600 focus-within:text-black rounded ">
                         <span className="absolute inset-y-0 left-0 flex items-center pl-2">
                             <svg
@@ -53,16 +53,16 @@ export default function Estados() {
                         </span>
                         <input
                             type="text"
-                            className={`py-2 pl-10 focus:ring-1 focus:outline-none border rounded border-gray-300 transition duration-200 ease-in ${!buscarActivado ? 'bg-red-200 transition duration-200 ease-in' : ''}`}
-                            placeholder="Buscar"
+                            className={`py-2 pl-10 focus:ring-1  focus:outline-none border rounded border-gray-300 transition duration-200 ease-in ${!buscarActivado ? 'bg-red-200 transition duration-200 ease-in' : ''}`}
+                            placeholder='Buscar'
                             value={busqueda}
                             onChange={(e) => setBusqueda(e.target.value)}
                             disabled={!buscarActivado}
                         />
                     </div>
                     <div className='flex ml-7'>
-                        <p className='flex items-center font-bold mr-2'>Minimo</p>
-                        <div className="relative text-gray-600 focus-within:text-black rounded">
+                        <div className="flex items-center relative text-gray-600 focus-within:text-black rounded">
+                            <p className='font-bold mr-2 '>Minimo</p>
                             <input
                                 type="number"
                                 id="lower"
@@ -72,9 +72,7 @@ export default function Estados() {
                                 onChange={(e) => setMinimo(e.target.value)}
                                 disabled={!minMaxActivados}
                             />
-                        </div>
-                        
-                        <div className="flex items-center relative text-gray-600 focus-within:text-black rounded">
+
                             <p className='font-bold mr-2 ml-4'>Maximo</p>
                             <input
                                 type="number"

@@ -34,17 +34,21 @@ const Formulario = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setFormData({
+
+        const fechaChileISO = new Date().toLocaleString('sv-SE', { timeZone: 'America/Santiago' });
+
+        const newFormData = {
             ...formData,
-            fecha: new Date().toISOString(),
-        });
+            fecha: fechaChileISO,
+        };
+        setFormData(newFormData);
 
         const postResponse = await fetch(Link + '/guardarRegistro', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify(formData),
+            body: JSON.stringify(newFormData),
         });
         if (postResponse.ok) {
             correcta('Evento registrado correctamente');
@@ -55,10 +59,10 @@ const Formulario = () => {
 
     return (
         <>
-        
+
             <div className='flex justify-center align-center w-full  mt-10'>
                 <div className="w-full flex justify-center">
-                    
+
                     <form onSubmit={handleSubmit} className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 border border-gray-300">
                         <div className="mb-4">
                             <label htmlFor="id" className="block text-gray-700 text-sm font-bold mb-2">
