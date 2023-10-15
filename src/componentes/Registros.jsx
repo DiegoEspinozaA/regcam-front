@@ -102,7 +102,7 @@ export default function Registros() {
           {locaciones.map((ubicacion) => (
             <div
               key={ubicacion.locacion}
-              className={`p-4 text-zinc-800 border border-gray-300 shadow-md rounded bg-background-color ${ubicacionSeleccionada !== ubicacion.locacion ? ' hover:shadow-xl hover:text-black  cursor-pointer transition duration-300 ease-in-out' : ''}`}
+              className={`p-4 text-zinc-800 border border-gray-300 shadow-md rounded bg-background-color transition duration-200 ease-in-out ${ubicacionSeleccionada !== ubicacion.locacion ? ' hover:shadow-lg hover:-translate-y-1 transition-transform hover:text-black  cursor-pointer duration-200 ease-in-out' : ''}`}
               onClick={ubicacionSeleccionada === ubicacion.locacion ? null : () => handleClick(ubicacion.locacion)}
             >
               <div onClick={ubicacionSeleccionada === ubicacion.locacion ? handleClose : null} className={`flex justify-between ${ubicacionSeleccionada === ubicacion.locacion ? 'cursor-pointer hover:text-red-500 transition duration-100 ease-in-out text-black border-b border-gray-400 ' : ''}`}>
