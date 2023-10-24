@@ -107,7 +107,7 @@ export default function Registros() {
             >
               <div onClick={ubicacionSeleccionada === ubicacion.locacion ? handleClose : null} className={`flex justify-between ${ubicacionSeleccionada === ubicacion.locacion ? 'cursor-pointer hover:text-red-500 transition duration-100 ease-in-out text-black border-b border-gray-400 ' : ''}`}>
                 <div className='flex justify-between w-full items-center'>
-                  <h2 className={`py-2 text-lg text-sm ${ubicacionSeleccionada === ubicacion.locacion ? 'cursor-pointer' : ''}`}>
+                  <h2 className={`py-2  text-sm ${ubicacionSeleccionada === ubicacion.locacion ? 'cursor-pointer' : ''}`}>
                     {ubicacion.locacion}
                   </h2>
                   {ubicacionSeleccionada !== ubicacion.locacion && (

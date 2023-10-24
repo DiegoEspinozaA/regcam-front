@@ -22,9 +22,7 @@ export default function Navbar() {
   }, [location]);
 
   return (
-    <div className="text-sm navbar flex h-[70px] items-center bg-white text-zinc-400 border-b-[1px] border-zinc-400 text-zinc-600 fixed top-0 w-full z-10">
-      <div className="container">
-        <div className="opciones">
+    <div className="text-sm navbar flex h-[70px] items-center bg-white border-b-[1px] border-zinc-300 text-zinc-600 fixed top-0 w-full z-10">
           <ul className="flex">
             <li className="flex items-center ml-2 mr-2">
               <Link to="/">
@@ -61,20 +59,8 @@ export default function Navbar() {
               </Link>
             </li>
             <li className="flex items-center ml-2 mr-2">
-              <Link to="/recientes">
-                <button
-                  className={`${
-                    seleccionado === 4 ? "activo " : ""
-                  } flex items-center hover-bg-blue-100 p-2 rounded-lg hover:text-black transition duration-300 ease-in-out`}
-                  onClick={() => setSeleccionado(4)}
-                >
-                  <p className="ml-2">Recientes</p>
-                </button>
-              </Link>
             </li>
           </ul>
-        </div>
-      </div>
     </div>
   );
 }

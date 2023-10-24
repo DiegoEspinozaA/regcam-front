@@ -6,38 +6,38 @@ import Recientes from './componentes/Recientes';
 import { Toaster } from 'react-hot-toast';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Navbar from "./componentes/Navbar";
-import { ChakraProvider } from '@chakra-ui/react'
-
+import { AnimatePresence } from 'framer-motion';
 function App() {
   return (
     <BrowserRouter>
-
-        <header>
-          <Navbar />
-        </header>
-        <section className="flex align-center h-full w-full mt-[70px]">
+      <header>
+        <Navbar />
+      </header>
+      <section className="flex align-center h-full w-full mt-[70px]">
         <Toaster toastOptions={{
-                className: '',
-                duration: 5000,
-                style: {
-                    background: '#363636',
-                    color: '#fff',
-                },
-                success: {
-                    duration: 3000,
-                    theme: {
-                        primary: 'green',
-                        secondary: 'black',
-                    },
-                },
-            }} />
+          className: '',
+          duration: 5000,
+          style: {
+            background: '#363636',
+            color: '#fff',
+          },
+          success: {
+            duration: 3000,
+            theme: {
+              primary: 'green',
+              secondary: 'black',
+            },
+          },
+        }} />
+        <AnimatePresence>
           <Routes>
-            <Route exact path ="/" element={<Formulario/>} />
-            <Route path="/estados" element={<Estados/>} />
-            <Route path="/registros" element={<Registros/>} />
-            <Route path="/recientes" element={<Recientes/>} />
+            <Route exact path="/" element={<Formulario />} />
+            <Route path="/estados" element={<Estados />} />
+            <Route path="/registros" element={<Registros />} />
           </Routes>
-        </section>
+        </AnimatePresence>
+
+      </section>
     </BrowserRouter>
   );
 }

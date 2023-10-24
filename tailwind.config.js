@@ -9,6 +9,8 @@ module.exports = {
         'custom-color': '#3d484e',
         'background-color': '#f3f4f9',
         'oscuro': '#0a0a0a',
+        'rojo': '#fd6c6d',
+        'azul-oscuro': '#264f7e',
         
       },
     },

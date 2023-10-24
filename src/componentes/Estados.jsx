@@ -86,15 +86,15 @@ export default function Estados() {
                         </div>
                     </div>
                 </div>
-                <div className='w-full bg-background-color py-5 pl-7 rounded mt-5 shadow-lg border border-gray-300 shadow-lg'>
+                <div className='w-full bg-background-color py-5 pl-7 rounded mt-5 border border-gray-300 shadow-lg'>
                     <div className='grid grid-cols-[repeat(auto-fill,minmax(100px,1fr))] gap-2 p-4'>
                         {elementosFiltrados.map((index) => (
                             <div
                                 key={index}
                                 className='mb-4 relative group flex items-center text-white border border-gray-900 justify-center w-16 h-16 bg-gray-500 rounded-lg cursor-pointer'
                             >
-                                <div className='absolute top-1 left-1  rounded-full bg-gray-700 w-2 h-2 transition duration-100 group-hover:bg-red-500 border border-black'></div>
-                                <div className='border bg-blue-500 border-black rounded-full w-11 h-11 text-white flex items-center justify-center transition duration-100 ease-in group-hover:bg-red-500'>
+                                <div className='absolute top-1 left-1  rounded-full bg-gray-700 w-2 h-2 transition duration-100 group-hover:bg-rojo border border-black'></div>
+                                <div className='border bg-blue-500 border-black rounded-full w-11 h-11 text-white flex items-center justify-center transition duration-100 ease-in group-hover:bg-rojo'>
                                     <p className="text-lg font-semibold">{index}</p>
                                 </div>
                             </div>
