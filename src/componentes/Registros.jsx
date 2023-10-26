@@ -1,12 +1,8 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-import { BiChevronDown } from 'react-icons/bi';
-import { GoX } from 'react-icons/go';
 import Overlay from './Overlay';
 import Link from '../Apiconf';
-
-
-
+import { Accordion, AccordionItem } from "@nextui-org/react";
 export default function Registros() {
   const [locaciones, setLocaciones] = useState([]);
   const [camaras, setCamaras] = useState([]);
@@ -36,6 +32,7 @@ export default function Registros() {
 
   const handleClick = (ubicacion) => {
     setUbicacionSeleccionada(ubicacionSeleccionada === ubicacion ? null : ubicacion);
+    setExpanded(!isExpanded);
     setAbierto(true);
   };
 
@@ -70,9 +67,43 @@ export default function Registros() {
     setAbierto(true);
   };
 
+  const [isExpanded, setExpanded] = useState(false);
+
+  const toggleCollapse = () => {
+    setExpanded(!isExpanded);
+  };
+  const defaultContent =
+    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.";
+
   return (
-    <div className="flex items-center w-full justify-center" >
-      <div className="text-sm mt-10 text-black flex flex-col justify-center w-[80%] bg-white p-6 shadow-lg rounded border border-gray-300">
+
+    <div className="p-4 xl:ml-80 flex items-center justify-center max-w-screen" >
+      <div className='p-4 w-full bg-white shadow-lg'>
+        
+        <Accordion >
+          {locaciones.map((ubicacion) => (
+            <AccordionItem key={ubicacion.locacion} aria-label={ubicacion.locacion} title={ubicacion.locacion}
+              className='w-full shadow-lg rounded-lg border border-gray-200 px-3 py-1 hover:shadow-xl transition-all duration-200 bg-gray-200 mb-4'>
+              <div className="grid grid-cols-[repeat(auto-fill,minmax(90px,1fr))] gap-1 mb-4">
+
+                {camerasPorLocacion[ubicacion.locacion]?.map((camera) => (
+                  <button
+                    key={camera}
+                    className="flex items-center text-white border border-gray-900 justify-center w-16 h-16 bg-gray-500 rounded-full hover:bg-red-400 font-bold transition-all duration-200"
+                    onClick={() => handleOpenModal(camera)}
+
+                  >
+                    {camera}
+                  </button>
+
+                ))}
+              </div>
+            </AccordionItem>
+          ))}
+
+        </Accordion>
+      </div>
+      {/* <div className="text-sm text-black flex flex-col justify-center w-full  bg-white p-6 shadow-lg rounded border border-gray-300">
         <div className='flex justify-left '>
           <div className="relative text-gray-600 focus-within:text-black rounded ">
             <span className="absolute inset-y-0 left-0 flex items-center pl-2">
@@ -96,34 +127,31 @@ export default function Registros() {
               placeholder='Buscar'
             />
           </div>
-        </div>
+        </div> */}
 
-        <div className="grid gap-4 w-full mt-5">
+      {/* <div className="grid gap-4 w-full mt-5">
+
           {locaciones.map((ubicacion) => (
             <div
               key={ubicacion.locacion}
-              className={`p-4 text-zinc-800 border border-gray-300 shadow-md rounded bg-background-color transition duration-200 ease-in-out ${ubicacionSeleccionada !== ubicacion.locacion ? ' hover:shadow-lg hover:-translate-y-1 transition-transform hover:text-black  cursor-pointer duration-200 ease-in-out' : ''}`}
+              className={`p-4 text-zinc-800 border border-gray-300 shadow-md rounded bg-background-color transition duration-200 ease-in-out ${ubicacionSeleccionada !== ubicacion.locacion ? ' hover:shadow-lg transition-transform hover:text-black  cursor-pointer duration-200 ease-in-out' : ''}`}
               onClick={ubicacionSeleccionada === ubicacion.locacion ? null : () => handleClick(ubicacion.locacion)}
             >
-              <div onClick={ubicacionSeleccionada === ubicacion.locacion ? handleClose : null} className={`flex justify-between ${ubicacionSeleccionada === ubicacion.locacion ? 'cursor-pointer hover:text-red-500 transition duration-100 ease-in-out text-black border-b border-gray-400 ' : ''}`}>
-                <div className='flex justify-between w-full items-center'>
+
+              <div onClick={ubicacionSeleccionada === ubicacion.locacion ? handleClose : null} className={`flex justify-between ${ubicacionSeleccionada === ubicacion.locacion ? 'cursor-pointer transition duration-100 ease-in-out text-black border-b border-gray-300 ' : ''}`}>
+                <div className='flex gap-4 w-full items-center'>
+                  <IconButton
+                    aria-label="expand row"
+                    size="small"
+                  >
+                    {ubicacionSeleccionada === ubicacion.locacion ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
+                  </IconButton>
                   <h2 className={`py-2  text-sm ${ubicacionSeleccionada === ubicacion.locacion ? 'cursor-pointer' : ''}`}>
                     {ubicacion.locacion}
                   </h2>
-                  {ubicacionSeleccionada !== ubicacion.locacion && (
-                    <BiChevronDown size={25} />
-                  )}
+
                 </div>
-                <div className="flex justify-end " >
-                  {ubicacionSeleccionada === ubicacion.locacion && (
-                    <button
-                      onClick={() => handleClose()}
-                      className=""
-                    >
-                      <GoX size={25} />
-                    </button>
-                  )}
-                </div>
+
               </div>
               {ubicacionSeleccionada === ubicacion.locacion && (
                 <div className="w-full pt-5 pb-2">
@@ -146,11 +174,11 @@ export default function Registros() {
               )}
             </div>
           ))}
-        </div>
-        {botonSeleccionado && (
-          <Overlay numero={botonSeleccionado} locacion={ubicacionSeleccionada} onClose={() => setBotonSeleccionado(null)} />
-        )}
-      </div>
+        </div> */}
+      {botonSeleccionado && (
+        <Overlay numero={botonSeleccionado} locacion={ubicacionSeleccionada} onClose={() => setBotonSeleccionado(null)} />
+      )}
+      {/* </div> */}
     </div>
 
 

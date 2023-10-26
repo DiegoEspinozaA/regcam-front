@@ -1,5 +1,6 @@
 @tailwind base;
 @tailwind utilities;
+@tailwind components;
 @font-face {
   font-family: 'Poppins';
   font-style: normal;
@@ -28,18 +29,3 @@ body{
   max-width: 0;
 }
 
-.activo {
-  background-color: rgb(219 234 254);
-  color: rgb(0, 0, 0);
-  position: relative; /* Para ajustar la posición del subrayado */
-}
-
-.activo::after {
-  content: ""; /* Crea un elemento pseudo ::after */
-  position: absolute; /* Posición absoluta en relación con el elemento padre */
-  left: 0; /* Coloca el subrayado alineado a la izquierda */
-  bottom: -17px; /* Ajusta la distancia hacia abajo según tus preferencias */
-  width: 100%; /* Ancho del subrayado */
-  height: 2px; /* Grosor del subrayado */
-  background-color: rgb(1, 1, 1); /* Color del subrayado */
-}

@@ -7,39 +7,40 @@ import { Toaster } from 'react-hot-toast';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Navbar from "./componentes/Navbar";
 import { AnimatePresence } from 'framer-motion';
+
 function App() {
   return (
     <BrowserRouter>
-      <header>
+      <div className="flex">
         <Navbar />
-      </header>
-      <section className="flex align-center h-full w-full mt-[70px]">
-        <Toaster toastOptions={{
-          className: '',
-          duration: 5000,
-          style: {
-            background: '#363636',
-            color: '#fff',
-          },
-          success: {
-            duration: 3000,
-            theme: {
-              primary: 'green',
-              secondary: 'black',
-            },
-          },
-        }} />
-        <AnimatePresence>
+
+        <div className="flex-1">
+          <Toaster
+            toastOptions={{
+              className: '',
+              duration: 5000,
+              style: {
+                background: '#363636',
+                color: '#fff',
+              },
+              success: {
+                duration: 3000,
+                theme: {
+                  primary: 'green',
+                  secondary: 'black',
+                },
+              },
+            }}
+          />
+
           <Routes>
             <Route exact path="/" element={<Formulario />} />
             <Route path="/estados" element={<Estados />} />
             <Route path="/registros" element={<Registros />} />
           </Routes>
-        </AnimatePresence>
-
-      </section>
+        </div>
+      </div>
     </BrowserRouter>
   );
 }
-
 export default App;

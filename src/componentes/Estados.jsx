@@ -3,7 +3,7 @@ import Link from '../Apiconf';
 
 export default function Estados() {
     const [camaras, setCamaras] = useState([]);
-    const [busqueda, setBusqueda] = useState('');
+    const [busqueda, setBusqueda] = useState(null);
     const [minimo, setMinimo] = useState('');
     const [maximo, setMaximo] = useState('');
 
@@ -32,8 +32,8 @@ export default function Estados() {
     const minMaxActivados = !busqueda;
 
     return (
-        <div className='flex align-center justify-center w-full'>
-            <div className="text-sm mt-10 text-black flex flex-col justify-center w-[80%] bg-white p-6 shadow-lg rounded border border-gray-300">
+        <div className='p-4 xl:ml-80 max-w-screen flex align-center justify-center mt-10'>
+            <div className="text-sm  text-black flex flex-col justify-center w-full bg-white p-6 shadow-lg rounded border border-gray-300">
                 <div className='flex'>
                     <div className="relative text-gray-600 focus-within:text-black rounded ">
                         <span className="absolute inset-y-0 left-0 flex items-center pl-2">
@@ -87,17 +87,15 @@ export default function Estados() {
                     </div>
                 </div>
                 <div className='w-full bg-background-color py-5 pl-7 rounded mt-5 border border-gray-300 shadow-lg'>
-                    <div className='grid grid-cols-[repeat(auto-fill,minmax(100px,1fr))] gap-2 p-4'>
+                    <div className='grid grid-cols-[repeat(auto-fill,minmax(100px,1fr))] gap-1 p-4'>
                         {elementosFiltrados.map((index) => (
-                            <div
-                                key={index}
-                                className='mb-4 relative group flex items-center text-white border border-gray-900 justify-center w-16 h-16 bg-gray-500 rounded-lg cursor-pointer'
+                              <button
+                              key={index}
+                              className="shadow-lg flex items-center text-white border border-gray-900 justify-center w-16 h-16 bg-gray-500 rounded-full hover:bg-red-400 font-bold transition-all duration-200"
+          
                             >
-                                <div className='absolute top-1 left-1  rounded-full bg-gray-700 w-2 h-2 transition duration-100 group-hover:bg-rojo border border-black'></div>
-                                <div className='border bg-blue-500 border-black rounded-full w-11 h-11 text-white flex items-center justify-center transition duration-100 ease-in group-hover:bg-rojo'>
-                                    <p className="text-lg font-semibold">{index}</p>
-                                </div>
-                            </div>
+                              {index}
+                            </button>
                         ))}
                     </div>
                 </div>
