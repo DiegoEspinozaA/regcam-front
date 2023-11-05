@@ -1,16 +1,10 @@
+
 @tailwind base;
 @tailwind utilities;
 @tailwind components;
-@font-face {
-  font-family: 'Poppins';
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: url(https://fonts.gstatic.com/s/poppins/v20/pxiEyp8kv8JHgFVrJJfecg.woff2) format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-}
+
+
 body{
-  font-family: 'Poppins';
   background: #f1f3f9;
   align-items: center;
   justify-content: center;
@@ -21,7 +15,10 @@ body{
 }
 
 
-
+#miElemento {
+  transition: backdrop-filter 1s ease; /* Agrega una transición suave a backdrop-filter */
+  backdrop-filter: blur(0); /* Estado inicial sin desenfoque */
+}
 .truncate-cell {
   overflow: hidden;
   text-overflow: ellipsis;
@@ -29,3 +26,26 @@ body{
   max-width: 0;
 }
 
+th {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+}
+
+th:after,
+th:before {
+  content: "";
+  position: absolute;
+  left: 0;
+  width: 100%;
+}
+
+th:before {
+  top: -1px;
+  border-top: 1px solid #e5e5e5;
+}
+
+th:after {
+  bottom: -2px;
+  border-bottom: 2px solid #e5e5e5;
+}

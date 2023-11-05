@@ -20,6 +20,10 @@ module.exports = {
         'blue-gray-800': '#3e4a52', // Reemplaza este valor con tu color personalizado
         'blue-gray-900': '#303a41', // Reemplaza este valor con tu color personalizado
       },
+
+      fontFamily: {
+        'Geist': ['Geist', 'sans-serif'],
+      }
     },
   },
   plugins: [],

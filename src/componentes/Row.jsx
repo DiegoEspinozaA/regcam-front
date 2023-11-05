@@ -2,6 +2,8 @@ import React from 'react';
 import { useState } from 'react';
 import TableCell from '@mui/material/TableCell';
 import TableRow from '@mui/material/TableRow';
+import { Link } from 'react-router-dom';
+import EditarRegistro from './EditarRegistro';
 
 export default function Row(props) {
     const { row } = props;
@@ -23,9 +25,11 @@ export default function Row(props) {
                 <TableCell className=" " align="left" > {row.descripcion}</TableCell>
                 <TableCell className="max-w-xs truncate" align="left"> {row.notificado ? 'Si' : 'No'}</TableCell>
                 <TableCell className="max-w-xs truncate" align="right">
-                    <button className=' text-blue-500 font-bold py-1 px-2 rounded  hover:bg-blue-100 transition-all duration-200 '>
-                        Editar
-                    </button>
+                    <Link path="/eventos/ads/{row.id}" element={<EditarRegistro id={row.id}></EditarRegistro>}>
+                        <button className='text-red-400 py-1 px-2 rounded  hover:bg-blue-100 transition-all duration-200 '>
+                            Editar
+                        </button>
+                    </Link>
                 </TableCell>
             </TableRow>
             <TableRow>

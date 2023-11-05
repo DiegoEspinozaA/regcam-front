@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Link from '../Apiconf';
-
+import Nav from './Nav';
 export default function Estados() {
     const [camaras, setCamaras] = useState([]);
     const [busqueda, setBusqueda] = useState(null);
@@ -32,8 +32,9 @@ export default function Estados() {
     const minMaxActivados = !busqueda;
 
     return (
-        <div className='p-4 xl:ml-80 max-w-screen flex align-center justify-center mt-10'>
-            <div className="text-sm  text-black flex flex-col justify-center w-full bg-white p-6 shadow-lg rounded border border-gray-300">
+        <div className='p-4  xl:ml-80  h-[calc(96vh-32px)]  max-w-screen rounded-xl transition-transform duration-300 xl:translate-x-0'>
+          <Nav></Nav>
+            <div className="text-sm  text-black flex flex-col justify-center w-full bg-white p-6 shadow-lg rounded  mt-3">
                 <div className='flex'>
                     <div className="relative text-gray-600 focus-within:text-black rounded ">
                         <span className="absolute inset-y-0 left-0 flex items-center pl-2">
@@ -91,7 +92,7 @@ export default function Estados() {
                         {elementosFiltrados.map((index) => (
                               <button
                               key={index}
-                              className="shadow-lg flex items-center text-white border border-gray-900 justify-center w-16 h-16 bg-gray-500 rounded-full hover:bg-red-400 font-bold transition-all duration-200"
+                              className="focus:outline-none shadow-gray-500/40  shadow-lg flex items-center text-white justify-center w-16 h-16 bg-gray-500 rounded-xl hover:bg-red-400 font-bold transition-all duration-200"
           
                             >
                               {index}

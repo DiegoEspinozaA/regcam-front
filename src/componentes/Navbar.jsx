@@ -13,26 +13,26 @@ export default function Sidebar() {
     if (location.pathname === '/') {
       setSeleccionado(1);
     }
-    else if (location.pathname === '/estados') {
+    else if (location.pathname === '/Estados') {
       setSeleccionado(2);
     }
-    else if (location.pathname === '/registros') {
+    else if (location.pathname === '/Registros') {
       setSeleccionado(3);
     }
-    else if (location.pathname === '/recientes') {
+    else if (location.pathname === '/Recientes') {
       setSeleccionado(4);
     }
   }, [location]);
 
   return (
-    <aside className=" font-sans bg-gradient-to-br from-blue-gray-800 to-blue-gray-900 -translate-x-80 fixed inset-0 z-40 my-4 ml-4 h-[calc(100vh-32px)] w-72 rounded-xl transition-transform duration-300 xl:translate-x-0">
+    <aside className="bg-gradient-to-br from-blue-gray-800 to-blue-gray-900 -translate-x-80 fixed inset-0 z-40 my-4 ml-4 h-[calc(100vh-32px)] w-72 rounded-xl transition-transform duration-300 xl:translate-x-0">
       <div className="relative border-b border-white/20">
         <a className="flex items-center gap-4 py-6 px-8 text-white" href="#/">
         <CameraIcon></CameraIcon>
           {/* <img src="/material-tailwind-dashboard-react/img/logo-ct.png" className="inline-block relative object-cover object-center w-9 h-9 rounded-md" alt="Logo" /> */}
-          <div className='flex'>
-          <h6 className="block antialiased tracking-normal font-sans text-base font-semibold leading-relaxed">REG</h6>
-          <h6 className="block antialiased tracking-normal font-sans text-base font-semibold leading-relaxed text-red-500 ml-[2px]">CAM</h6>
+          <div className='flex '>
+          <h6 className="block antialiased tracking-normal font-sans text-base font-bold leading-relaxed ">REG</h6>
+          <h6 className="block antialiased tracking-normal font-sans text-base font-bold leading-relaxed text-red-500 ml-[2px]">CAM</h6>
           </div>
         </a>
         <button className="middle none font-sans font-medium text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none w-8 max-w-[32px] h-8 max-h-[32px] rounded-lg text-xs text-white hover:bg-white/10 active:bg-white/30 absolute right-0 top-0 grid rounded-br-none rounded-tl-none xl:hidden" type="button">
@@ -46,7 +46,7 @@ export default function Sidebar() {
       <div className="m-4">
         <ul className="mb-4 flex flex-col gap-2">
           <li className="flex items-center ">
-            <Link to="/"
+            <Link to="/eventos"
               className='w-full'>
               <button
                 className={"middle none font-sans font-bold center transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-3 rounded-lg text-white w-full flex items-center gap-4 px-4 capitalize " + (seleccionado === 1 ? "bg-azul shadow-md hover:shadow-lg hover:shadow-blue-300/40 " : " hover:bg-white/10 active:bg-white/30")}
@@ -61,7 +61,7 @@ export default function Sidebar() {
             <Link to="/estados"
               className='w-full'>
               <button
-                className={"middle none font-sans font-bold center transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-3 rounded-lg text-white w-full flex items-center gap-4 px-4 capitalize " + (seleccionado === 2 ? "bg-azul shadow-md hover:shadow-lg hover:shadow-blue-300/40 " : " hover:bg-white/10 active:bg-white/30")}
+                className={"middle none font-sans font-bold center transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-3 rounded-lg text-white w-full flex items-center gap-4 px-4 capitalize " + (seleccionado === 2 ? "bg-azul shadow-sm hover:shadow-lg shadow-blue-300/50 hover:shadow-blue-300/40 " : " hover:bg-white/10 active:bg-white/30")}
                 onClick={() => setSeleccionado(2)}
               >
                 <CameraAltIcon></CameraAltIcon>
