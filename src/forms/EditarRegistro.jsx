@@ -15,7 +15,7 @@ export default function EditarRegistro({ registro, setEditModalOpen, tiposEvento
     return (
         <>
             {isEditModalOpen && (
-                <div className="bg-gradient-to-t from-zinc-700 to-zinc-900/10 p-10 text-black fixed inset-0 flex items-center justify-center z-50" style={{ backdropFilter: 'blur(5px)', transition: 'all 0.5s ease-in-out' }}>
+                 <div className="bg-zinc-900/40 p-10 text-black fixed inset-0 flex items-center justify-center z-50">
                     <div className="text-blak relative w-full max-w-md max-h-full">
                         <div className="relative bg-white rounded-lg">
                             <button type="button" className="absolute top-3 right-1 bg-transparent rounded-lg text-sm px-2 font-bold py-1 ml-auto inline-flex justify-center items-center text-red-600 hover:bg-red-200 transition-all duration-200" data-modal-hide="authentication-modal"

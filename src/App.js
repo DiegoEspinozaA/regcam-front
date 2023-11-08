@@ -1,22 +1,21 @@
 import React from 'react';
-import Formulario from "./componentes/Formulario";
-import Registros from "./componentes/Registros";
-import Estados from './componentes/Estados';
-import Recientes from './componentes/Recientes';
 import { Toaster } from 'react-hot-toast';
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import Navbar from "./componentes/Navbar";
-import { AnimatePresence } from 'framer-motion';
-import EditarRegistro from './componentes/EditarRegistro';
-import Overlay from './componentes/Overlay';
-import { RegistroProvider } from './context/RegistroContext';
-
+import { BrowserRouter, Routes, Route} from 'react-router-dom';
+import Sidebar from "./componentes/Sidebar";
+import routes from './routes/Routes';
+import Formulario from "./pages/Recientes";
+import Estados from "./pages/Estados";
+import Registros from "./pages/Registros";
+import Registro from "./componentes/Registro";
+import Historial from "./pages/Historial";
+import { ThemeProvider } from "@material-tailwind/react";
+import { Navigate } from 'react-router-dom';
 function App() {
   return (
-    <RegistroProvider>
+    <ThemeProvider>
       <BrowserRouter>
         <div className="flex">
-          <Navbar />
+          <Sidebar />
 
           <div className="flex-1">
             <Toaster
@@ -36,20 +35,18 @@ function App() {
                 },
               }}
             />
-
             <Routes>
               <Route path="/" element={<Navigate to="/eventos" replace />} />
-              <Route exact path="/eventos" element={<Formulario />} />
-
+              <Route path="/eventos" element={<Formulario />} />
               <Route path="/estados" element={<Estados />} />
-
               <Route path="/registros" element={<Registros />} />
-              <Route path="/registros/camara/:id" element={<Overlay />} />
+              <Route path="/registros/camara/:id" element={<Registro />} />
+              <Route path="/registros/camara/:id_camara/historial/:id_registro" element={<Historial />} />
             </Routes>
           </div>
         </div>
       </BrowserRouter>
-    </RegistroProvider>
+    </ThemeProvider>
   );
 }
 export default App;

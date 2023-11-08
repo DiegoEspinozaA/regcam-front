@@ -1,24 +1,38 @@
-
 @tailwind base;
 @tailwind utilities;
 @tailwind components;
 
 
-body{
+body {
   background: #f1f3f9;
   align-items: center;
   justify-content: center;
   color: rgb(21, 21, 21);
 }
-.z-20 {
-  z-index: 1001;
+
+
+
+.TimelineItem:before {
+  background-color: rgb(198, 198, 198);
+  bottom: 0;
+  content: "";
+  display: block;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: max(2px, 0.125rem);
 }
 
 
-#miElemento {
-  transition: backdrop-filter 1s ease; /* Agrega una transición suave a backdrop-filter */
-  backdrop-filter: blur(0); /* Estado inicial sin desenfoque */
+
+.TimelineItem {
+  display: flex;
+  margin-left: var(1rem, 1rem);
+  padding: var(1rem, 1rem) 0;
+  position: relative;
 }
+
+
 .truncate-cell {
   overflow: hidden;
   text-overflow: ellipsis;

@@ -13,12 +13,18 @@ module.exports = {
         'azul-oscuro': '#264f7e',
         'navbar-color': '#303a41',
         'azul': '#5699e9',
-        'hover': '#475157'
+        'hover': '#475157',
+        'verde': '#438440',
         
       },
       colors: {
-        'blue-gray-800': '#3e4a52', // Reemplaza este valor con tu color personalizado
-        'blue-gray-900': '#303a41', // Reemplaza este valor con tu color personalizado
+        'blue-gray-800': '#3e4a52',
+        'blue-gray-900': '#303a41',
+        'blue-gray-400': '#78909C',
+        'verde': '#438440'
+      },
+      spacing: {
+        '-control-medium-size': 'calc(2rem / -2 + 1px)',
       },
 
       fontFamily: {
