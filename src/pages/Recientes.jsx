@@ -52,14 +52,18 @@ const Formulario = () => {
                 getRegistros={getRegistros}
                 registros={registros}
             />
-            <EditarRegistro
-                setEditModalOpen={setEditModalOpen}
-                isEditModalOpen={isEditModalOpen}
-                tiposEventos={tiposEventos}
-                setRegistros={setRegistros}
-                getRegistros={getRegistros}
-                registro={editingRegistro}
-            />
+
+            {isEditModalOpen && (
+                   <EditarRegistro
+                   setEditModalOpen={setEditModalOpen}
+                   isEditModalOpen={isEditModalOpen}
+                   tiposEventos={tiposEventos}
+                   setRegistros={setRegistros}
+                   getRegistros={getRegistros}
+                   registro={editingRegistro}
+               />
+            )}
+         
             <div className='xl:ml-80 h-[calc(100vh-32px)] my-4 px-4  max-w-screen rounded-xl transition-transform duration-300 xl:translate-x-0 '>
                 <Nav></Nav>
                 <div className='text-sm  text-black flex flex-col justify-center w-full bg-white p-6 shadow-lg rounded-xl  mt-3'>

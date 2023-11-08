@@ -193,14 +193,14 @@ export default function Tabla(props) {
                                                     Añadir información
                                                 </Typography>
                                             </button>
-                                            {/* <button className=' text-red-500 font-semibold py-1 px-2 rounded text-xs hover:bg-red-100 transition-all duration-200 relative '
+                                            <button className=' text-red-500 font-semibold py-1 px-2 rounded text-xs hover:bg-red-100 transition-all duration-200 relative '
                                                 onClick={() => handleDelete(dato.id)}>
                                                 <Typography
                                                     className="text-xs font-semibold  opacity-90"
                                                 >
                                                     Eliminar
                                                 </Typography>
-                                            </button> */}
+                                            </button>
                                         </div>
                                     </motion.td>
                                 </motion.tr>
