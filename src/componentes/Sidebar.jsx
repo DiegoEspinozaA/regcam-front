@@ -19,11 +19,11 @@ export default function Sidebar() {
           <CameraIcon></CameraIcon>
           {/* <img src="/material-tailwind-dashboard-react/img/logo-ct.png" className="inline-block relative object-cover object-center w-9 h-9 rounded-md" alt="Logo" /> */}
           <div className='flex '>
-            <h6 className="block antialiased tracking-normal font-sans text-base font-bold leading-relaxed ">REG</h6>
-            <h6 className="block antialiased tracking-normal font-sans text-base font-bold leading-relaxed text-red-500 ml-[2px]">CAM</h6>
+            <h6 className="block antialiased tracking-normal  text-base font-bold leading-relaxed ">REG</h6>
+            <h6 className="block antialiased tracking-normal  text-base font-bold leading-relaxed text-red-500 ml-[2px]">CAM</h6>
           </div>
         </a>
-        <button className="middle none font-sans font-medium text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none w-8 max-w-[32px] h-8 max-h-[32px] rounded-lg text-xs text-white hover:bg-white/10 active:bg-white/30 absolute right-0 top-0 grid rounded-br-none rounded-tl-none xl:hidden" type="button">
+        <button className="middle none  font-medium text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none w-8 max-w-[32px] h-8 max-h-[32px] rounded-lg text-xs text-white hover:bg-white/10 active:bg-white/30 absolute right-0 top-0 grid rounded-br-none rounded-tl-none xl:hidden" type="button">
           <span className="absolute top-1/2 left-1/2 transform -translate-y-1/2 -translate-x-1/2">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" aria-hidden="true" className="h-5 w-5 text-white">
               <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
@@ -42,7 +42,7 @@ export default function Sidebar() {
                 <EventIcon></EventIcon>
                 <Typography
                   color="inherit"
-                  className="font-semibold font-sans text-[15px] capitalize"
+                  className="semibold  text-[15px] capitalize"
                 >
                   Registrar evento
                 </Typography>
@@ -60,9 +60,9 @@ export default function Sidebar() {
                 <CameraAltIcon></CameraAltIcon>
                 <Typography
                   color="inherit"
-                  className="font-semibold text-[15px] capitalize"
+                  className="semibold text-[15px] capitalize"
                 >
-                  Estados camaras
+                  Camaras
                 </Typography>
               </Button>
             </Link>
@@ -77,7 +77,7 @@ export default function Sidebar() {
                 <BackupTableIcon></BackupTableIcon>
                 <Typography
                   color="inherit"
-                  className="font-semibold text-[15px] capitalize"
+                  className="semibold text-[15px] capitalize"
                 >
                   Registros
                 </Typography>

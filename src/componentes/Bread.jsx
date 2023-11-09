@@ -26,19 +26,15 @@ export default function Bread() {
     return (
       <li key={crumb}>
         {isLastCrumb ? (
-          <Typography
-            variant="small"
-            color="blue-gray"
-            className="text-sm font-semibold"
-          >
+          <p className="semibold">
             {splitCamelCase(crumb).join(' ')}
-          </Typography>
+          </p>
         ) : (
-          <div className="flex items-center text-blue-gray-900 antialiased font-sans text-md font-normal leading-normal cursor-pointer transition-colors duration-300 hover:text-light-blue-500">
+          <div className="flex items-center text-blue-gray-900 antialiased cursor-pointer hover:text-blue-500">
             <Link to={linkTo}>
               <Typography
                 variant="small"
-                className="font-normal  hover:text-blue-500 "
+                className="font-xs  hover:text-blue-500 "
               >
 
                 {splitCamelCase(crumb).join(' ') === 'camara'
@@ -47,8 +43,14 @@ export default function Bread() {
                     {splitCamelCase(crumb).join(' ') === 'historial'
                       ?
                       '' : <>
-                        {splitCamelCase(crumb).join(' ')}
-                        <span class="text-blue-gray-500 text-md antialiased font-sans font-normal leading-normal mx-2 pointer-events-none select-none">/</span>
+                        <div className="flex align-center items-center">
+
+                          {splitCamelCase(crumb).join(' ')}
+                          <svg className="w-3 h-3 text-gray-400 mx-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4" />
+                          </svg>
+                        </div>
+
                       </>
                     }
                   </>

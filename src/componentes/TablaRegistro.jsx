@@ -53,7 +53,13 @@ export default function TablaRegistros(props) {
                                 animate={{ opacity: 1 }}
                                 exit={{ opacity: 0 }}>
                                 <motion.td className="max-w-xs truncate border-b border-blue-gray-50 p-4 px-5" >
-                                    <p className="block antialiased font-sans text-sm leading-normal text-gray-600">{registro.fecha}</p>
+                                    <p className="block antialiased font-sans text-sm leading-normal text-gray-600">{new Date(registro.fecha).toLocaleString('es-ES', {
+                                        year: 'numeric',
+                                        month: 'numeric',
+                                        day: 'numeric',
+                                        hour: '2-digit',
+                                        minute: '2-digit',
+                                    })}</p>
 
                                 </motion.td>
 
@@ -71,12 +77,24 @@ export default function TablaRegistros(props) {
 
                                 <motion.td className="max-w-xs truncate border-b border-blue-gray-50 ">
                                     <div className="flex align-center mr-1">
-                                        <button className=' text-blue-500  py-1 px-2 rounded font-semibold text-xs hover:bg-blue-100 transition-all duration-200 relative '
+                                        <button className=' text-blue-400  py-1 px-2 rounded font-semibold text-xs hover:bg-blue-100 transition-all duration-200 relative '
                                         >
-                                            Agregar Información
+                                            <div className="flex gap-1">
+
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-rotate-2" width="16" height="16" viewBox="0 0 24 24" stroke-width="1.5" stroke="#3b82f6" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                                    <path d="M15 4.55a8 8 0 0 0 -6 14.9m0 -4.45v5h-5" />
+                                                    <path d="M18.37 7.16l0 .01" />
+                                                    <path d="M13 19.94l0 .01" />
+                                                    <path d="M16.84 18.37l0 .01" />
+                                                    <path d="M19.37 15.1l0 .01" />
+                                                    <path d="M19.94 11l0 .01" />
+                                                </svg>
+                                                <p>Actualizar información</p>
+                                            </div>
                                         </button>
                                         <Link to={`/registros/camara/${id}/historial/${registro.id}`}>
-                                            <button className='flex gap-1 items-center text-blue-500 font-semibold py-1 px-2 rounded text-xs hover:bg-blue-100 transition-all duration-200 relative '
+                                            <button className='flex gap-1 items-center text-blue-400 font-semibold py-1 px-2 rounded text-xs hover:bg-blue-100 transition-all duration-200 relative '
                                             >
                                                 <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-history" width="16" height="16" viewBox="0 0 24 24" stroke-width="1.5" stroke="#3b82f6" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                                     <path stroke="none" d="M0 0h24v24H0z" fill="none" />

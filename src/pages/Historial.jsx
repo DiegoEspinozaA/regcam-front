@@ -1,7 +1,6 @@
 import Nav from "../componentes/Navbar"
 import React, { useEffect, useState } from "react";
 import Link from "../Apiconf";
-import { datos } from "../data/historial"
 import { Accordion, AccordionItem } from "@nextui-org/react";
 import IconButton from '@mui/material/IconButton';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
@@ -9,7 +8,6 @@ import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import { useParams } from "react-router-dom";
 export default function Historial() {
     const { id_registro } = useParams();
-
     const [historial, setHistorial] = useState([]);
 
     useEffect(() => {
@@ -22,32 +20,22 @@ export default function Historial() {
                 console.error('Error:', error);
             });
     }, [])
-    const registrosPorFecha = {};
 
-    // Recorre todos los registros y agrúpalos por fecha (solo año, mes y día)
+    const registrosPorFecha = {};
     historial.forEach(registro => {
         const fechaModificacion = new Date(registro["fecha_modificacion"]);
-        // Formatear la fecha como "yyyy-mm-dd"
-        const fechaClave = fechaModificacion.toISOString().split('T')[0];
-        if (registrosPorFecha[fechaClave]) {
-            registrosPorFecha[fechaClave].push(registro);
+        const fechaClave = new Date(fechaModificacion);
+        const dia = fechaClave.getDate();
+        const mes = fechaClave.toLocaleString('es-ES', { month: 'long' });
+        const año = fechaClave.getFullYear();
+        const fechaFormateada = `${dia} de ${mes} de ${año}`;
+        if (registrosPorFecha[fechaFormateada]) {
+            registrosPorFecha[fechaFormateada].push(registro);
         } else {
-            registrosPorFecha[fechaClave] = [registro];
+            registrosPorFecha[fechaFormateada] = [registro];
         }
     });
 
-    // Mostrar el objeto
-
-    console.log(registrosPorFecha)
-    const fechas = Object.keys(datos);
-    const [selectedDate, setSelectedDate] = useState(null);
-    const handleDateClick = (fecha) => {
-        if (selectedDate === fecha) {
-            setSelectedDate(null);
-        } else {
-            setSelectedDate(fecha);
-        }
-    };
 
     const [selectedCambio, setSelectedCambio] = useState(null);
 
@@ -65,23 +53,29 @@ export default function Historial() {
             <div className='xl:ml-80 h-[calc(100vh-32px)] my-4 px-4 max-w-screen rounded-xl transition-transform duration-300 xl:translate-x-0 '>
                 <Nav></Nav>
                 <div className='text-sm  text-gray-800 flex flex-col justify-center w-full bg-white p-6 shadow-lg rounded-xl  mt-3 '>
-                    <p className='text-xl font-bold text-gray-700 font-base mb-5'>Historial del registro {id_registro}</p>
-                    <div className="py-4 px-4 rounded-lg bg-blue-100 shadow-md">
-                        <h2 className="text-md font-bold text-gray-700 mb-2">Estado actual</h2>
+                    <p className='text-xl font-bold text-gray-700 font-base mb-5'>Registro {id_registro}</p>
+                    <p className='text-lg font-bold text-gray-700 font-base ml-1'>Estado actual </p>
+                    <div className="py-2 px-3 rounded-lg bg-blue-100 shadow-md">
                         <div className=" gap-40">
-                            <div className="">
-                                <label className="font-bold text-[14px] text-gray-700">Fecha</label>
+                            <div className="flex gap-1">
+                                <label className="font-bold text-[14px] text-gray-700">Camara:</label>
                                 <p>asdasdkask</p>
                             </div>
 
-                            <div className="">
 
-                                <label className="font-bold text-[14px] text-gray-700">Evento</label>
+                            <div className="flex gap-1">
+                                <label className="font-bold text-[14px] text-gray-700">Fecha:</label>
+                                <p>asdasdkask</p>
+                            </div>
+
+                            <div className="flex gap-1">
+
+                                <label className="font-bold text-[14px] text-gray-700">Evento:</label>
                                 <p>Asalto</p>
                             </div>
-                            <div className="">
+                            <div className="flex gap-1">
 
-                                <label className="font-bold text-[14px] text-gray-700">Notificado</label>
+                                <label className="font-bold text-[14px] text-gray-700">Notificado:</label>
                                 <p>No</p>
                             </div>
 
@@ -94,6 +88,7 @@ export default function Historial() {
 
 
                     </div>
+                    <p className='text-lg font-bold text-gray-700 font-base mt-5 ml-1'>Historial</p>
                     <div className="mt-5 w-full rounded-lg shadow-md border border-gray-200">
 
                         <div className=" overflow-y-auto scrollbar-container bg-white max-h-[calc(100vh-430px)]  px-6 justify-center ">
@@ -107,12 +102,7 @@ export default function Historial() {
                                                 </svg>
                                             </div>
                                             <div class="mt-[-0.20rem] w-full">
-                                                <h2 class="text-md px-2">Cambios registrados el {new Date(fecha).toLocaleDateString('es-CL', {
-                                                    weekday: "long",
-                                                    year: "numeric",
-                                                    month: "long",
-                                                    day: "numeric",
-                                                })}</h2>
+                                                <h2 class="text-md px-2">Cambios registrados el {fecha}</h2>
                                                 <Accordion hideIndicator >
                                                     {registros.map((cambio) => (
                                                         <AccordionItem
@@ -135,7 +125,7 @@ export default function Historial() {
                                                                         )}
                                                                         <div className="flex gap-1 items-center">
                                                                             <p className="font-bold text-[14px] text-gray-600">Diego Espinoza</p>
-                                                                            <p className="text-xs">{new Date(cambio.fecha_modificacion).toLocaleDateString('es-CL', {
+                                                                            <p className="text-xs">Cambio realizado a las {new Date(cambio.fecha_modificacion).toLocaleDateString('es-CL', {
                                                                                 hour: "numeric",
                                                                                 minute: "numeric",
                                                                             }).split(' ')[1]} hrs</p>
@@ -145,18 +135,19 @@ export default function Historial() {
                                                                 </div>
                                                             }
                                                             onPress={() => toggleCambio(fecha)}
-                                                            className='w-full mt-3 shadow-md outline-none rounded-lg font-sans hover:shadow-md transition-all duration-200 mb-3 hover:bg-gray-300 text-base bg-gray-200 border border-gray-300 '
+                                                            className='w-full mt-3 shadow-md outline-none rounded-lg  hover:shadow-md transition-all duration-200 mb-3 hover:bg-gray-300 text-base bg-gray-200 border border-gray-300 '
                                                         >
                                                             <ol className="px-11">
                                                                 <li>
+                                                                    <label className="font-bold text-[14px] text-gray-600">Camara</label>
+                                                                    <p>{cambio.id_camara}</p>
                                                                     <label className="font-bold text-[14px] text-gray-600">Fecha</label>
-                                                                    <p >{new Date(cambio.fecha).toLocaleDateString('es-CL', {
-                                                                         weekday: "long",
-                                                                         year: "numeric",
-                                                                         month: "long",
-                                                                         day: "numeric",
-                                                                         hour: "numeric",
-                                                                         minute: "numeric",
+                                                                    <p >{new Date(cambio.fecha).toLocaleString('es-ES', {
+                                                                        year: 'numeric',
+                                                                        month: 'numeric',
+                                                                        day: 'numeric',
+                                                                        hour: '2-digit',
+                                                                        minute: '2-digit',
                                                                     })}</p>
                                                                 </li>
                                                                 <li>
