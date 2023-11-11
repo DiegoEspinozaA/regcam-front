@@ -54,26 +54,26 @@ export default function Historial() {
                 <Nav></Nav>
                 <div className='text-sm  text-gray-800 flex flex-col justify-center w-full bg-white p-6 shadow-lg rounded-xl  mt-3 '>
                     <p className='text-xl font-bold text-gray-700 font-base mb-5'>Registro {id_registro}</p>
-                    <p className='text-lg font-bold text-gray-700 font-base ml-1'>Estado actual </p>
+                    <p className='text-lg font-bold text-gray-600 font-base ml-1'>Estado actual </p>
                     <div className="py-2 px-3 rounded-lg bg-blue-100 shadow-md">
-                        <div className=" gap-40">
-                            <div className="flex gap-1">
+                        <div className="">
+                            <div className="flex gap-1 mb-1">
                                 <label className="font-bold text-[14px] text-gray-700">Camara:</label>
                                 <p>asdasdkask</p>
                             </div>
 
 
-                            <div className="flex gap-1">
+                            <div className="flex gap-1 mb-1">
                                 <label className="font-bold text-[14px] text-gray-700">Fecha:</label>
                                 <p>asdasdkask</p>
                             </div>
 
-                            <div className="flex gap-1">
+                            <div className="flex gap-1 mb-1">
 
                                 <label className="font-bold text-[14px] text-gray-700">Evento:</label>
                                 <p>Asalto</p>
                             </div>
-                            <div className="flex gap-1">
+                            <div className="flex gap-1 mb-1">
 
                                 <label className="font-bold text-[14px] text-gray-700">Notificado:</label>
                                 <p>No</p>
@@ -85,10 +85,8 @@ export default function Historial() {
                             <p>Lorem pasdjaskdm lkasdlk asjlkdasjdlk sajlkdjas lkdjaslkd</p>
                         </div>
 
-
-
                     </div>
-                    <p className='text-lg font-bold text-gray-700 font-base mt-5 ml-1'>Historial</p>
+                    <p className='text-lg font-bold text-gray-600 font-base mt-5 ml-1'>Historial</p>
                     <div className="mt-5 w-full rounded-lg shadow-md border border-gray-200">
 
                         <div className=" overflow-y-auto scrollbar-container bg-white max-h-[calc(100vh-430px)]  px-6 justify-center ">
@@ -109,7 +107,7 @@ export default function Historial() {
                                                             key={cambio.ID}
                                                             aria-label={cambio.ID}
                                                             title={
-                                                                <div className='flex w-full h-3 px-1 py-2 items-center'>
+                                                                <div className='flex w-full px-1 py-1 items-center h-5 '>
                                                                     <div className="flex items-center">
                                                                         {selectedCambio === fecha ? (
                                                                             <IconButton
@@ -123,9 +121,9 @@ export default function Historial() {
                                                                                 <KeyboardArrowDownIcon ></KeyboardArrowDownIcon>
                                                                             </IconButton>
                                                                         )}
-                                                                        <div className="flex gap-1 items-center">
+                                                                        <div className="flex gap-1 items-center align-bottom ">
                                                                             <p className="font-bold text-[14px] text-gray-600">Diego Espinoza</p>
-                                                                            <p className="text-xs">Cambio realizado a las {new Date(cambio.fecha_modificacion).toLocaleDateString('es-CL', {
+                                                                            <p className="text-xs ali">Cambio realizado a las {new Date(cambio.fecha_modificacion).toLocaleDateString('es-CL', {
                                                                                 hour: "numeric",
                                                                                 minute: "numeric",
                                                                             }).split(' ')[1]} hrs</p>
@@ -137,11 +135,15 @@ export default function Historial() {
                                                             onPress={() => toggleCambio(fecha)}
                                                             className='w-full mt-3 shadow-md outline-none rounded-lg  hover:shadow-md transition-all duration-200 mb-3 hover:bg-gray-300 text-base bg-gray-200 border border-gray-300 '
                                                         >
-                                                            <ol className="px-11">
-                                                                <li>
-                                                                    <label className="font-bold text-[14px] text-gray-600">Camara</label>
+                                                            <div className="px-11">
+                                                                <div className="flex gap-1 mb-1">
+                                                                    <label className="font-bold text-[14px] text-gray-700">Camara:</label>
                                                                     <p>{cambio.id_camara}</p>
-                                                                    <label className="font-bold text-[14px] text-gray-600">Fecha</label>
+                                                                </div>
+
+
+                                                                <div className="flex gap-1 mb-1">
+                                                                    <label className="font-bold text-[14px] text-gray-700">Fecha:</label>
                                                                     <p >{new Date(cambio.fecha).toLocaleString('es-ES', {
                                                                         year: 'numeric',
                                                                         month: 'numeric',
@@ -149,20 +151,27 @@ export default function Historial() {
                                                                         hour: '2-digit',
                                                                         minute: '2-digit',
                                                                     })}</p>
-                                                                </li>
-                                                                <li>
-                                                                    <label className="font-bold text-[14px] text-gray-600">Descripcion</label>
-                                                                    <p>{cambio.descripcion}</p>
-                                                                </li>
-                                                                <li>
-                                                                    <label className="font-bold text-[14px] text-gray-600">Evento</label>
+                                                                </div>
+
+                                                                <div className="flex gap-1 mb-1">
+
+                                                                    <label className="font-bold text-[14px] text-gray-700">Evento:</label>
                                                                     <p>{cambio.tipo}</p>
-                                                                </li>
-                                                                <li>
-                                                                    <label className="font-bold text-[14px] text-gray-600">Notificado</label>
-                                                                    <p>{cambio.notificado ? 'Si' : 'No'}</p>
-                                                                </li>
-                                                            </ol>
+                                                                </div>
+                                                                <div className="flex gap-1 mb-1">
+
+                                                                    <label className="font-bold text-[14px] text-gray-700">Notificado:</label>
+                                                                    <p>No</p>
+                                                                </div>
+
+                                                                <div className="flex gap-1 mb-1">
+
+                                                                    <label className="font-bold text-[14px] text-gray-700">Descripcion</label>
+                                                                    <p>{cambio.descripcion}</p>
+                                                                </div>
+
+                                                            </div>
+                                                      
                                                         </AccordionItem>
                                                     ))}
                                                 </Accordion>

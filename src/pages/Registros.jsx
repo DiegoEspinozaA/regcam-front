@@ -8,10 +8,17 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import Nav from '../componentes/Navbar';
 import { Button } from '@material-tailwind/react';
+import { useAppContext } from '../AppContext';
+
+
 export default function Registros() {
   const [locaciones, setLocaciones] = useState([]);
   const [camaras, setCamaras] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const {state, dispatch } = useAppContext();
+
+
+
 
   useEffect(() => {
     fetch(Link + '/camaras')
@@ -94,16 +101,18 @@ export default function Registros() {
 
             </div>
           </div>
-          {!isLoading ? (
-            <div className="mt-5 w-full rounded-lg shadow-lg h-[calc(100vh-250px)] border border-gray-200 bg-gray-100">
+        
+            <div className="mt-5 w-full rounded-lg shadow-lg h-[calc(100vh-245px)] border border-gray-200 bg-gray-100">
+            {!isLoading ? (
               <div className="overflow-y-auto scrollbar-container bg-transparent max-h-full p-6">
+                
                 <Accordion hideIndicator >
                   {locaciones.map((ubicacion) => (
                     <AccordionItem
                       key={ubicacion.locacion}
                       aria-label={ubicacion.locacion}
                       title={
-                        <div className='flex w-full h-6 items-center'>
+                        <div className='flex w-full p-1 items-center h-5'>
                           {openLocation === ubicacion.locacion ? (
                             <IconButton >
                               <KeyboardArrowUpIcon></KeyboardArrowUpIcon>
@@ -139,10 +148,11 @@ export default function Registros() {
                   ))}
                 </Accordion>
               </div>
+                  ) : (
+                    <></>
+                  )}
             </div>
-          ) : (
-            <></>
-          )}
+      
         </div>
       </div>
 

@@ -5,65 +5,23 @@ import TablaRecientes from '../componentes/TablaRecientes';
 import AgregarEvento from '../forms/AgregarEvento';
 import EditarRegistro from '../forms/EditarRegistro';
 import { Button } from "@material-tailwind/react";
+import { useAppContext } from '../AppContext';
 
 const Formulario = () => {
     const [isLoading, setIsLoading] = useState(true);
-
-    const [tiposEventos, setTiposEventos] = useState([]);
-    const getEventos = async () => {
-        fetch(Link + '/tiposEventos')
-            .then((response) => response.json())
-            .then((data) => setTiposEventos(data));
-    }
-
-    const getRegistros = async () => {
-        fetch(Link + '/registros')
-            .then(response => response.json())
-            .then(data => {
-                setRegistros(data);
-                setIsLoading(false);
-            })
-            .catch(error => {
-            });
-    }
-
-    useEffect(() => {
-        getEventos();
-    }, [])
+    const [eventos, setEventos] = useState([]);
+    const { state, dispatch } = useAppContext();
+    
+    const handleClickAgregar = () => {
+        dispatch({ type: 'TOGGLE_FORM', form: 'showAgregar', payload: true });
+        dispatch({ type: 'SET_SELECTED_CAMARA', payload: null });
+    };
 
 
-    useEffect(() => {
-        getRegistros();
-    }, [])
-
-    const [registros, setRegistros] = useState([]);
     const [busqueda, setBusqueda] = useState('');
-    const [showModal, setShowModal] = useState(false);
-    const [isEditModalOpen, setEditModalOpen] = useState(false);
-    const [editingRegistro, setEditingRegistro] = useState(null);
 
     return (
         <>
-            <AgregarEvento
-                showModal={showModal}
-                setShowModal={setShowModal}
-                tiposEventos={tiposEventos}
-                setRegistros={setRegistros}
-                getRegistros={getRegistros}
-                registros={registros}
-            />
-
-            {isEditModalOpen && (
-                   <EditarRegistro
-                   setEditModalOpen={setEditModalOpen}
-                   isEditModalOpen={isEditModalOpen}
-                   tiposEventos={tiposEventos}
-                   setRegistros={setRegistros}
-                   getRegistros={getRegistros}
-                   registro={editingRegistro}
-               />
-            )}
-         
             <div className='xl:ml-80 h-[calc(100vh-32px)] my-4 px-4  max-w-screen rounded-xl transition-transform duration-300 xl:translate-x-0 '>
                 <Nav></Nav>
                 <div className='text-sm  text-black flex flex-col justify-center w-full bg-white p-6 shadow-lg rounded-xl  mt-3'>
@@ -112,8 +70,8 @@ const Formulario = () => {
                                 </div>
                             </div>
                             <div>
-                                <Button className="gap-2 bg-green-600 justify-center shadow-lg hover:bg-green-500 text-gray-200 py-2 px-5 rounded flex items-center transition duration-200 ease-in border "
-                                    onClick={() => setShowModal(true)}>
+                                <Button className="gap-2 bg-gray-900 justify-center shadow-sm hover:shadow-xl text-gray-200 py-2 px-5 rounded flex items-center transition duration-200 ease-in border "
+                                    onClick={() => handleClickAgregar()}>
                                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-plus" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="#ffffff" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                         <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                                         <path d="M12 5l0 14" />
@@ -126,12 +84,12 @@ const Formulario = () => {
                             </div>
                         </div>
                     </div>
-                    {!isLoading ? (
-                        <div className="mt-5 w-full rounded-lg shadow-lg h-[calc(100vh-250px)] border border-gray-200">
-                            <div className="overflow-y-auto scrollbar-container bg-white max-h-full mt-1">
-                                <TablaRecientes registros={registros} setRegistros={setRegistros} busqueda={busqueda} setEditingRegistro={setEditingRegistro} setEditModalOpen={setEditModalOpen}></TablaRecientes>
+                  
+                        <div className="mt-5 w-full rounded-lg shadow-md h-[calc(100vh-226px)] border border-gray-200">
+                            <div className="overflow-y-auto scrollbar-container max-h-full bg-transparent">
+                                <TablaRecientes busqueda={busqueda}></TablaRecientes>
                             </div>
-                        </div>) : (<></>)}
+                        </div>
                 </div>
             </div>
         </>

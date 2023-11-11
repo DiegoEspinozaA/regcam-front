@@ -8,6 +8,7 @@ export default function Estados() {
     const [busqueda, setBusqueda] = useState('');
     const [minimo, setMinimo] = useState('');
     const [maximo, setMaximo] = useState('');
+    const [isLoading, setIsLoading] = useState(true);
 
     const [min, setMin] = useState('');
     const [max, setMax] = useState('');
@@ -19,12 +20,16 @@ export default function Estados() {
                 setCamaras(data);
                 setMin(data[0].id);
                 setMax(data[data.length - 1].id);
+                setIsLoading(false);
+
             })
             .catch(error => {
                 console.error('Error en la primera solicitud:', error);
             });
 
     }, [])
+
+
 
     const setFilters = () => {
         setBusqueda('');
@@ -66,7 +71,9 @@ export default function Estados() {
         <div className='xl:ml-80 h-[calc(100vh-32px)] my-4 px-4  max-w-screen rounded-xl transition-transform duration-300 xl:translate-x-0'>
             <Nav></Nav>
             <div className="text-sm  text-black flex flex-col justify-center w-full bg-white p-6 shadow-lg rounded-xl mt-3">
-            <p className='text-xl font-bold text-gray-700 font-base mb-5'>Estados camaras</p>
+                <p className='text-xl font-bold text-gray-700 font-base mb-5'>Estados camaras</p>
+
+
                 <div className='flex'>
                     <div className="relative text-gray-600 focus-within:text-black rounded ">
                         <span className="absolute inset-y-0 left-0 flex items-center pl-2">
@@ -118,28 +125,31 @@ export default function Estados() {
                                 onChange={(e) => setMinimo(e.target.value)}
                                 disabled={!minMaxActivados}
                             />
+                            {!isLoading && (
+                                <>
+                                    <p className='font-bold mr-2 ml-4'>Maximo</p>
+                                    <input
+                                        type="number"
+                                        id="upper"
+                                        min={min}
+                                        max={max}
+                                        onKeyDown={(e) => {
+                                            if (e.key === '-' || e.key === 'e' || e.key === '.' || e.key === ',') {
+                                                e.preventDefault();
+                                            }
+                                        }}
+                                        placeholder={max}
+                                        className={`py-2  pl-4 pr-2 focus:ring-1 focus:outline-none border rounded border-gray-300 transition duration-200 ease-in ${!minMaxActivados ? 'bg-red-200 transition duration-200 ease-in' : ''}`}
+                                        value={maximo}
+                                        onChange={(e) => setMaximo(e.target.value)}
+                                        disabled={!minMaxActivados}
+                                    /></>
+                            )}
 
-                            <p className='font-bold mr-2 ml-4'>Maximo</p>
-                            <input
-                                type="number"
-                                id="upper"
-                                min={min}
-                                max={max}
-                                onKeyDown={(e) => {
-                                    if (e.key === '-' || e.key === 'e' || e.key === '.' || e.key === ',') {
-                                        e.preventDefault();
-                                    }
-                                }}
-                                placeholder={max}
-                                className={`py-2  pl-4 pr-2 focus:ring-1 focus:outline-none border rounded border-gray-300 transition duration-200 ease-in ${!minMaxActivados ? 'bg-red-200 transition duration-200 ease-in' : ''}`}
-                                value={maximo}
-                                onChange={(e) => setMaximo(e.target.value)}
-                                disabled={!minMaxActivados}
-                            />
                         </div>
                         {(busqueda.length > 0 || minimo.length > 0 || maximo.length > 0) && (
                             <button
-                                className='ml-4 bg-gray-300 border border-gray-300 text-gray-700 text-[12px] py-1 px-3  rounded-full  hover:bg-gray-400 hover:border-gray-600 transition-all duration-200'
+                                className='ml-4 bg-gray-300 border border-gray-300 text-gray-700 text-[12px] py-1 px-3 semibold rounded-full  hover:bg-gray-400 hover:border-gray-600 transition-all duration-200'
                                 onClick={() => setFilters()}
                             >
                                 Reiniciar
@@ -147,37 +157,45 @@ export default function Estados() {
                         )}
                     </div>
                 </div>
-                <div className="mt-5 w-full rounded-lg shadow-lg  bg-gray-100 h-[calc(100vh-250px)] border border-gray-200 py-6">
+                <div className="mt-5 w-full rounded-lg shadow-lg  bg-gray-100 h-[calc(100vh-226px)] border border-gray-200 py-6">
                     <div className="overflow-y-auto scrollbar-container bg-gray-100 max-h-full">
                         <div className='grid grid-cols-[repeat(auto-fill,minmax(100px,1fr))] gap-1'>
-                            {elementosFiltrados.map((index) => (
-                                <div key={index.id} className="relative flex justify-end items-center gap-2">
-                                    <Dropdown className='bg-gray-500 rounded-xl outline-none border-none shadow-md text-gray-100'
-                                        onClose={handleDropdownClose}
-                                        isOpen={activeDropdown === index.id}
-                                    >
-                                        <DropdownTrigger >
-                                            <Button
-                                                className={`focus:outline-none semibold text-lg mb-5 shadow-md flex ${index.id === activeDropdown ? 'bg-red-400' : 'bg-gray-500'} items-center text-white justify-center w-16 h-16  rounded-xl hover:bg-red-400 font-bold transition-all duration-200 `}
-                                                onClick={() => {
-                                                    handleDropdownToggle(index.id);
-                                                }}
+                            {!isLoading ? (
+                                <>
+
+                                    {elementosFiltrados.map((index) => (
+                                        <div key={index.id} className="relative flex justify-end items-center gap-2">
+                                            <Dropdown className='bg-gray-500 rounded-xl outline-none border-none shadow-md text-gray-100'
+                                                onClose={handleDropdownClose}
+                                                isOpen={activeDropdown === index.id}
                                             >
+                                                <DropdownTrigger >
+                                                    <Button
+                                                        className={`focus:outline-none semibold text-lg mb-5 shadow-md flex ${index.id === activeDropdown ? 'bg-red-400' : 'bg-gray-500'} items-center text-white justify-center w-16 h-16  rounded-xl hover:bg-red-400 font-bold transition-all duration-200 `}
+                                                        onClick={() => {
+                                                            handleDropdownToggle(index.id);
+                                                        }}
+                                                    >
 
-                                                {index.id}
-                                            </Button>
-                                        </DropdownTrigger>
-                                        <DropdownMenu>
-                                            <DropdownItem className='bg-gray-500 hover:bg-gray-400 rounded-lg transition-all duration-150 mb-1'>Actualizar estado</DropdownItem>
-                                            <DropdownItem className='bg-gray-500 hover:bg-gray-400 rounded-lg transition-all duration-150'>Historial </DropdownItem>
-                                        </DropdownMenu>
-                                    </Dropdown>
-                                </div>
+                                                        {index.id}
+                                                    </Button>
+                                                </DropdownTrigger>
+                                                <DropdownMenu>
+                                                    <DropdownItem className='bg-gray-500 hover:bg-gray-400 rounded-lg transition-all duration-150 mb-1'>Actualizar estado</DropdownItem>
+                                                    <DropdownItem className='bg-gray-500 hover:bg-gray-400 rounded-lg transition-all duration-150'>Historial </DropdownItem>
+                                                </DropdownMenu>
+                                            </Dropdown>
+                                        </div>
 
-                            ))}
+                                    ))}
+                                </>
+                            ) : <></>}
                         </div>
                     </div>
                 </div>
+
+
+
             </div>
         </div>
     );

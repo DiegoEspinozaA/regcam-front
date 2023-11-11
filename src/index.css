@@ -44,7 +44,11 @@ body {
 }
 
 
-
+.long-text {
+  overflow: hidden;          /* Oculta el contenido que excede del contenedor */
+  text-overflow: ellipsis;   /* Añade puntos suspensivos al final del texto recortado */
+  white-space: nowrap; /* Añade puntos suspensivos al final del contenido visible */
+}
 .TimelineItem {
   display: flex;
   margin-left: var(1rem, 1rem);
