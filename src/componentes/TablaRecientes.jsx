@@ -28,6 +28,7 @@ export default function Tabla(props) {
             });
     };
 
+
     const handleVerMasClick = (registro) => {
         dispatch({ type: 'SET_SELECTED_REGISTRO', payload: registro });
         dispatch({ type: 'TOGGLE_FORM', form: 'showVerMasForm', payload: true });
@@ -54,7 +55,7 @@ export default function Tabla(props) {
             {registros.map((registro, index) => (
                 <div key={index} className={`border-r border-l border-b border-gray-200 rounded-lg shadow-md px-4 py-2 pb-2 hover:shadow-lg transition-shadow duration-200'
                     }`}
-                    style={{ borderTopColor: registro.color, borderTopWidth: '4px' }} s>
+                    style={{ borderTopColor: registro.color, borderTopWidth: '4px' }} >
                     <div className="flex gap-1">
 
                         <PiUserCircleFill className="w-6 h-6 text-gray-500 translate-y-[-2px]"></PiUserCircleFill>
@@ -82,7 +83,7 @@ export default function Tabla(props) {
 
                     <div className="flex justify-end space-x-2 mt-3">
                         <button
-                            className="text-blue-400 py-1 px-2 rounded font-semibold text-xs hover:bg-blue-100 transition-all duration-200 relative"
+                            className="text-blue-400 py-1 px-2 rounded font-semibold text-xs hover:bg-blue-100 transition-all duration-200 relative "
                             onClick={() => handleVerMasClick(registro)}
                         >
                             <div className="flex gap-1">

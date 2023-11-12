@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "../Apiconf";
 import { correcta, incorrecta } from "../Toast/Notificaciones";
 import { useAppContext } from '../AppContext';
@@ -60,6 +60,20 @@ export default function EditarRegistro() {
         }
     };
 
+    useEffect(() => {
+        const handleKeyDown = (event) => {
+            if (event.key === 'Escape') {
+                console.log()
+                handleCloseModal();
+            
+            }
+        };
+
+        document.addEventListener('keydown', handleKeyDown);
+        return () => {
+            document.removeEventListener('keydown', handleKeyDown);
+        };
+    }, []);
 
     return (
         <>

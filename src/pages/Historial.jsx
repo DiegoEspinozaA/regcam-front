@@ -6,20 +6,30 @@ import IconButton from '@mui/material/IconButton';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import { useParams } from "react-router-dom";
+import { PiUserCircleFill } from 'react-icons/pi'
+import { useAppContext } from "../AppContext";
+
 export default function Historial() {
     const { id_registro } = useParams();
     const [historial, setHistorial] = useState([]);
+    const { state, dispatch } = useAppContext();
+    const [registro, setRegistro] = useState({});
+    const [registroActual, setRegistroActual] = useState({});
+
+
 
     useEffect(() => {
         fetch(Link + '/historial/' + id_registro)
             .then(response => response.json())
             .then(data => {
                 setHistorial(data);
+                setRegistroActual(state.registros.find(item => item.id === parseInt(id_registro, 10)));
             })
             .catch(error => {
                 console.error('Error:', error);
             });
     }, [])
+
 
     const registrosPorFecha = {};
     historial.forEach(registro => {
@@ -36,6 +46,16 @@ export default function Historial() {
         }
     });
 
+    function formatearFecha(fechaISO) {
+        const fecha = new Date(fechaISO);
+        const dia = fecha.getDate().toString().padStart(2, '0');
+        const mes = (fecha.getMonth() + 1).toString().padStart(2, '0');
+        const anio = fecha.getFullYear();
+        const horas = fecha.getHours().toString().padStart(2, '0');
+        const minutos = fecha.getMinutes().toString().padStart(2, '0');
+
+        return `${dia}-${mes}-${anio} ${horas}:${minutos}`;
+    }
 
     const [selectedCambio, setSelectedCambio] = useState(null);
 
@@ -54,38 +74,36 @@ export default function Historial() {
                 <Nav></Nav>
                 <div className='text-sm  text-gray-800 flex flex-col justify-center w-full bg-white p-6 shadow-lg rounded-xl  mt-3 '>
                     <p className='text-xl font-bold text-gray-700 font-base mb-5'>Registro {id_registro}</p>
-                    <p className='text-lg font-bold text-gray-600 font-base ml-1'>Estado actual </p>
-                    <div className="py-2 px-3 rounded-lg bg-blue-100 shadow-md">
-                        <div className="">
-                            <div className="flex gap-1 mb-1">
-                                <label className="font-bold text-[14px] text-gray-700">Camara:</label>
-                                <p>asdasdkask</p>
-                            </div>
+                    <p className='text-lg font-bold text-gray-600 font-base ml-1 mb-1'>Estado actual </p>
+                    <div className={`border-r border-l border-b border-gray-200 rounded-lg shadow-md px-4 py-2 pb-2 transition-shadow duration-200'
+                    }`}
+                        style={{ borderTopColor: registroActual.color, borderTopWidth: '4px' }} s>
+                        <div className="flex gap-1">
 
-
-                            <div className="flex gap-1 mb-1">
-                                <label className="font-bold text-[14px] text-gray-700">Fecha:</label>
-                                <p>asdasdkask</p>
-                            </div>
-
-                            <div className="flex gap-1 mb-1">
-
-                                <label className="font-bold text-[14px] text-gray-700">Evento:</label>
-                                <p>Asalto</p>
-                            </div>
-                            <div className="flex gap-1 mb-1">
-
-                                <label className="font-bold text-[14px] text-gray-700">Notificado:</label>
-                                <p>No</p>
-                            </div>
-
+                            <PiUserCircleFill className="w-6 h-6 text-gray-500 translate-y-[-2px]"></PiUserCircleFill>
+                            <span className="text-gray-900"> {registroActual.responsable} </span>
+                            <span className="text-gray-800 ml-3">Creado el {formatearFecha(registroActual.fecha_creacion)} </span>
                         </div>
-                        <div className="">
-                            <label className="font-bold text-gray-700">Descripcion</label>
-                            <p>Lorem pasdjaskdm lkasdlk asjlkdasjdlk sajlkdjas lkdjaslkd</p>
+                        <div className="text-sm mt-2 px-1">
+                            <p className="py-[1px]"><strong>Camara:</strong> <span className="text-gray-600">{registroActual.id_camara}</span></p>
+                            <p className="py-[1px]"><strong>Fecha:</strong> <span className="text-gray-600">{formatearFecha(registroActual.fecha)}</span></p>
+                            <p className="py-[1px]"><strong>Evento:</strong> <span className="text-gray-600">{registroActual.tipo}</span></p>
+                            <p className="flex items-center py-[1px] gap-[1px] "><strong>Notificado:</strong> <span className={registroActual.notificado ? 'text-green-500' : 'text-red-500' + " translate-y-[1px]"}>
+                                {registroActual.notificado ?
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-check" width="16" height="16" viewBox="0 0 24 24" stroke-width="1.5" stroke="#00b341" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                        <path d="M5 12l5 5l10 -10" />
+                                    </svg>
+                                    :
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-x" width="16" height="16" viewBox="0 0 24 24" stroke-width="1.5" stroke="#ff2825" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                        <path d="M18 6l-12 12" />
+                                        <path d="M6 6l12 12" />
+                                    </svg>}</span></p>
+                            <p className="overflow-hidden text-ellipsis whitespace-nowrap"><strong>Descripción:</strong> <span className="text-gray-600">{registroActual.descripcion}</span></p>
                         </div>
-
                     </div>
+
                     <p className='text-lg font-bold text-gray-600 font-base mt-5 ml-1'>Historial</p>
                     <div className="mt-5 w-full rounded-lg shadow-md border border-gray-200">
 
@@ -107,7 +125,7 @@ export default function Historial() {
                                                             key={cambio.ID}
                                                             aria-label={cambio.ID}
                                                             title={
-                                                                <div className='flex w-full px-1 py-1 items-center h-5 '>
+                                                                <div className='flex w-full px-1 py-1 items-center '>
                                                                     <div className="flex items-center">
                                                                         {selectedCambio === fecha ? (
                                                                             <IconButton
@@ -171,7 +189,7 @@ export default function Historial() {
                                                                 </div>
 
                                                             </div>
-                                                      
+
                                                         </AccordionItem>
                                                     ))}
                                                 </Accordion>
@@ -181,7 +199,7 @@ export default function Historial() {
                                     </div>
                                 ))}
                                 <div class="TimelineItem pt-2 pb-2 ">
-                                    <div className=" w-[2rem] flex text-center items-center h-[1rem] ml-[-0.45rem] bg-white z-20">
+                                    <div className=" w-[2rem] flex text-center items-center h-[1rem] ml-[-0.45rem] bg-white z-20 mb-2">
                                         <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" className="fill-gray-500">
                                             <path d="M11.93 8.5a4.002 4.002 0 0 1-7.86 0H.75a.75.75 0 0 1 0-1.5h3.32a4.002 4.002 0 0 1 7.86 0h3.32a.75.75 0 0 1 0 1.5Zm-1.43-.75a2.5 2.5 0 1 0-5 0 2.5 2.5 0 0 0 5 0Z"></path>
                                         </svg>

@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import Link from '../Apiconf';
 import Nav from '../componentes/Navbar';
+import { Link as RouterLink } from 'react-router-dom';
 import { Button } from '@material-tailwind/react';
 import { Dropdown, DropdownItem, DropdownTrigger, DropdownMenu } from '@nextui-org/react';
+import { useAppContext } from '../AppContext';
 export default function Estados() {
-    const [camaras, setCamaras] = useState([]);
+    const {state, dispatch} = useAppContext();
+    const camaras = state.camaras;
+
     const [busqueda, setBusqueda] = useState('');
     const [minimo, setMinimo] = useState('');
     const [maximo, setMaximo] = useState('');
@@ -12,23 +16,6 @@ export default function Estados() {
 
     const [min, setMin] = useState('');
     const [max, setMax] = useState('');
-
-    useEffect(() => {
-        fetch(Link + '/camaras')
-            .then(res => res.json())
-            .then(data => {
-                setCamaras(data);
-                setMin(data[0].id);
-                setMax(data[data.length - 1].id);
-                setIsLoading(false);
-
-            })
-            .catch(error => {
-                console.error('Error en la primera solicitud:', error);
-            });
-
-    }, [])
-
 
 
     const setFilters = () => {
@@ -39,7 +26,6 @@ export default function Estados() {
 
     const buscarActivado = !minimo && !maximo;
     const minMaxActivados = !busqueda;
-
 
     const elementosFiltrados = camaras.filter(elemento => {
         if (minMaxActivados) {
@@ -64,6 +50,11 @@ export default function Estados() {
     };
     const handleDropdownClose = () => {
         setActiveDropdown(null);
+    };
+
+    const handleEstadoCamaraClick = (registro) => {
+        dispatch({ type: 'SET_ESTADO_CAMARA_SELECCIONADA', payload: registro });
+        dispatch({ type: 'TOGGLE_FORM', form: 'showEstadoCamaraForm', payload: true });
     };
 
 
@@ -148,19 +139,18 @@ export default function Estados() {
 
                         </div>
                         {(busqueda.length > 0 || minimo.length > 0 || maximo.length > 0) && (
-                            <button
-                                className='ml-4 bg-gray-300 border border-gray-300 text-gray-700 text-[12px] py-1 px-3 semibold rounded-full  hover:bg-gray-400 hover:border-gray-600 transition-all duration-200'
+                            <Button variant="outlined" className="bg-transparent border rounded-full border-gray-600 text-gray-900  font-bold py-2 px-5 ml-4"
                                 onClick={() => setFilters()}
                             >
-                                Reiniciar
-                            </button>
+                                <span className="ml-1">Reniciar</span>
+                            </Button>
+
                         )}
                     </div>
                 </div>
                 <div className="mt-5 w-full rounded-lg shadow-lg  bg-gray-100 h-[calc(100vh-226px)] border border-gray-200 py-6">
                     <div className="overflow-y-auto scrollbar-container bg-gray-100 max-h-full">
                         <div className='grid grid-cols-[repeat(auto-fill,minmax(100px,1fr))] gap-1'>
-                            {!isLoading ? (
                                 <>
 
                                     {elementosFiltrados.map((index) => (
@@ -171,31 +161,42 @@ export default function Estados() {
                                             >
                                                 <DropdownTrigger >
                                                     <Button
-                                                        className={`focus:outline-none semibold text-lg mb-5 shadow-md flex ${index.id === activeDropdown ? 'bg-red-400' : 'bg-gray-500'} items-center text-white justify-center w-16 h-16  rounded-xl hover:bg-red-400 font-bold transition-all duration-200 `}
+                                                        className={` focus:outline-none semibold outline-none text-lg mb-5 shadow-md flex  bg-white text-gray-900  items-center justify-center hover:shadow-lg w-16 h-16  rounded-xl font-bold transition-all duration-200 `}
+                                                        style={{ borderTopColor: index.color ? index.color : 'gray', borderTopWidth: '8px' }}
                                                         onClick={() => {
                                                             handleDropdownToggle(index.id);
                                                         }}
                                                     >
-
                                                         {index.id}
                                                     </Button>
                                                 </DropdownTrigger>
                                                 <DropdownMenu>
-                                                    <DropdownItem className='bg-gray-500 hover:bg-gray-400 rounded-lg transition-all duration-150 mb-1'>Actualizar estado</DropdownItem>
-                                                    <DropdownItem className='bg-gray-500 hover:bg-gray-400 rounded-lg transition-all duration-150'>Historial </DropdownItem>
+                                                    <DropdownItem
+                                                        className='bg-gray-500 hover:bg-gray-400 rounded-lg transition-all duration-150'
+                                                        onClick={() => {
+                                                            handleEstadoCamaraClick(index);
+                                                        }}
+                                                    >
+
+                                                        Actualizar estado
+                                                    </DropdownItem>
+                                                    <DropdownItem
+                                                        className='bg-gray-500 hover:bg-gray-400 rounded-lg transition-all duration-150'
+                                                    >
+                                                        <RouterLink to={"/estados/historialCamara/" + index.id}>
+
+                                                            Historial
+                                                        </RouterLink>
+
+                                                    </DropdownItem>
                                                 </DropdownMenu>
                                             </Dropdown>
                                         </div>
-
                                     ))}
                                 </>
-                            ) : <></>}
                         </div>
                     </div>
                 </div>
-
-
-
             </div>
         </div>
     );

@@ -9,9 +9,13 @@ const initialState = {
   showAgregar: false,
   showAgregarInformacionForm: false,
   showVerMasForm: false,
+  showEstadoCamaraForm: false,
+  EstadoCamaraSelectedCamera: [],
   selectedRegistro: null,
   tiposEventos: [],
+  tiposEstados: [],
   selectedCamara: null,
+  camaras: [],
 };
 
 const reducer = (state, action) => {
@@ -31,8 +35,17 @@ const reducer = (state, action) => {
     case 'SET_ID_CAMARA_SELECCIONADA':
       return { ...state, idCamaraSeleccionada: action.payload };
 
-      case 'SET_SELECTED_CAMARA':
+    case 'SET_SELECTED_CAMARA':
       return { ...state, selectedCamara: action.payload };
+
+    case 'SET_ESTADO_CAMARA_SELECCIONADA':
+      return { ...state, EstadoCamaraSelectedCamera: action.payload };
+
+    case 'SET_TIPOS_ESTADOS':
+      return { ...state, tiposEstados: action.payload };
+
+    case 'SET_CAMARAS':
+      return { ...state, camaras: action.payload };
     default:
       return state;
   }

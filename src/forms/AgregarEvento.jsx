@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect} from 'react';
 import { correcta, incorrecta } from '../Toast/Notificaciones';
 import { Button } from '@material-tailwind/react';
 import { useAppContext } from '../AppContext';
@@ -41,6 +41,7 @@ function AgregarEvento() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        console.log(formData)
 
         const exito = await agregarYSetearRegistros(formData, dispatch);
         if (exito) {
@@ -50,6 +51,23 @@ function AgregarEvento() {
         }
     };
 
+
+
+
+    useEffect(() => {
+        const handleKeyDown = (event) => {
+            if (event.key === 'Escape') {
+                console.log()
+                handleCloseModal();
+            
+            }
+        };
+
+        document.addEventListener('keydown', handleKeyDown);
+        return () => {
+            document.removeEventListener('keydown', handleKeyDown);
+        };
+    }, []);
 
     return (
         <>

@@ -1,5 +1,5 @@
 // VerMas.jsx
-import React from "react";
+import React, {useEffect} from "react";
 import { useAppContext } from '../AppContext';
 
 export default function VerMas() {
@@ -11,6 +11,23 @@ export default function VerMas() {
         // Limpia el registro seleccionado
         dispatch({ type: 'SET_SELECTED_REGISTRO', payload: null });
     };
+
+    
+    useEffect(() => {
+      const handleKeyDown = (event) => {
+          if (event.key === 'Escape') {
+              console.log()
+              handleClose();
+          
+          }
+      };
+
+      document.addEventListener('keydown', handleKeyDown);
+      return () => {
+          document.removeEventListener('keydown', handleKeyDown);
+      };
+  }, []);
+
 
     return (
         <div className="bg-zinc-900/40 p-10 text-black fixed inset-0 flex items-center justify-center z-50 overflow-y-auto">

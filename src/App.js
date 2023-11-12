@@ -15,18 +15,30 @@ import EditarRegistro from './forms/EditarRegistro';
 import { useEffect } from 'react';
 import Link from './Apiconf';
 import AgregarEvento from './forms/AgregarEvento';
+import HistorialCamara from './pages/HistorialCamara';
+import EstadoCamara from './forms/EstadoCamara';
 function App() {
   const { state, dispatch } = useAppContext();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
+      
         const registrosResponse = await fetch(Link + '/registros');
         const registrosData = await registrosResponse.json();
 
         const tiposEventosResponse = await fetch(Link + '/tiposEventos');
         const tiposEventosData = await tiposEventosResponse.json();
+        
+        const tiposEstadosResponse = await fetch(Link + '/estados');
+        const tiposEstadosData = await tiposEstadosResponse.json();
 
+        const camarasResponse = await fetch(Link + '/camaras');
+        const camarasData = await camarasResponse.json();
+
+        
+        dispatch({ type: 'SET_CAMARAS', payload: camarasData });
+        dispatch({ type: 'SET_TIPOS_ESTADOS', payload: tiposEstadosData });
         dispatch({ type: 'SET_REGISTROS', payload: registrosData });
         dispatch({ type: 'TOGGLE_EVENTOS', payload: tiposEventosData });
       } catch (error) {
@@ -44,6 +56,7 @@ function App() {
       {state.showVerMasForm && <VerMas />}
       {state.showAgregarInformacionForm && <EditarRegistro />}
       {state.showAgregar && <AgregarEvento/>}
+      {state.showEstadoCamaraForm && <EstadoCamara />}
       <BrowserRouter>
         <div className="flex">
           <Sidebar />
@@ -73,6 +86,7 @@ function App() {
               <Route path="/registros" element={<Registros />} />
               <Route path="/registros/camara/:id" element={<Registro />} />
               <Route path="/registros/camara/:id_camara/historial/:id_registro" element={<Historial />} />
+              <Route path="/estados/historialCamara/:id_camara" element={<HistorialCamara />} />
             </Routes>
           </div>
         </div>

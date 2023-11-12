@@ -38,10 +38,10 @@ export const actualizarRegistro = async (formData) => {
     console.error('Error en la solicitud HTTP:', error);
     return false;
 
-    
+
   }
 
-  
+
 };
 
 export const actualizarYSetearRegistros = async (formData, dispatch, state) => {
@@ -58,9 +58,30 @@ export const actualizarYSetearRegistros = async (formData, dispatch, state) => {
   return false;
 };
 
+
+export const actualizarEstadoCamara = async (formData, dispatch) => {
+  try {
+    const postResponse = await fetch(`${BASE_URL}/actualizarEstadoCamara`, {
+      method: 'POST',
+      headers: createHeaders(),
+      body: JSON.stringify(formData),
+    });
+    if (postResponse.ok) {
+      const registrosResponse = await fetch(BASE_URL + '/camaras');
+      const registrosData = await registrosResponse.json();
+      dispatch({ type: 'SET_CAMARAS', payload: registrosData });
+      dispatch({ type: 'SET_ESTADO_CAMARA_SELECCIONADA', payload: registrosData.find((camara) => camara.id === parseInt(formData.idCamara, 10)) });
+
+      return true;
+    } else {
+      return false;
+    }
+  } catch (error) {
+    console.error('Error en la solicitud HTTP:', error);
+    return false;
+  }
+}
 export const agregarYSetearRegistros = async (formData, dispatch) => {
-
-
   try {
     const fechaChileISO = new Date().toLocaleString('sv-SE', { timeZone: 'America/Santiago' });
     const newFormData = {
@@ -86,7 +107,7 @@ export const agregarYSetearRegistros = async (formData, dispatch) => {
       const registrosData = await registrosResponse.json();
       dispatch({ type: 'SET_REGISTROS', payload: registrosData });
 
-      
+
 
       return true; // Indica que la operación tuvo éxito
     } else {

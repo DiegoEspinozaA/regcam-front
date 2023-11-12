@@ -52,6 +52,8 @@ export default function Registros() {
 
 
 
+
+
   const [openLocation, setOpenLocation] = useState(null);
   const toggleLocation = (locacion) => {
     if (openLocation === locacion) {
@@ -112,7 +114,7 @@ export default function Registros() {
                       key={ubicacion.locacion}
                       aria-label={ubicacion.locacion}
                       title={
-                        <div className='flex w-full p-1 items-center h-5'>
+                        <div className='flex w-full items-center'>
                           {openLocation === ubicacion.locacion ? (
                             <IconButton >
                               <KeyboardArrowUpIcon></KeyboardArrowUpIcon>
