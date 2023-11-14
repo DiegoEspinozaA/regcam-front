@@ -1,10 +1,8 @@
 import React from "react";
 import { motion, AnimatePresence } from 'framer-motion';
-import { Typography } from "@material-tailwind/react";
 import { Link } from "react-router-dom";
 import { useAppContext } from '../AppContext';
 import { PiUserCircleFill } from 'react-icons/pi'
-import { BsEye, BsPencilSquare, BsClockHistory } from 'react-icons/bs';
 export default function TablaRegistros(props) {
     const { id } = props;
     const { state, dispatch } = useAppContext();
@@ -31,10 +29,14 @@ export default function TablaRegistros(props) {
         return `${dia}-${mes}-${anio} ${horas}:${minutos}`;
     }
 
+    const handleChangeRegistroSelected = (registro) => {
+        dispatch({ type: 'SET_SELECTED_REGISTRO', payload: registro });
+    }
+
     return (
-        <div className="grid grid-cols-1 gap-4 px-5 py-3">
+        <div className="grid grid-cols-1 gap-4 px-5 py-3 ">
             {registros.map((registro, index) => (
-                <div key={index} className={`border-r border-l border-b border-gray-200 rounded-lg shadow-md px-4 py-2 pb-2 hover:shadow-lg transition-shadow duration-200'
+                <div key={index} className={`border-r border-l border-b border-gray-200 bg-white rounded-lg shadow-md px-4 py-2 pb-2 hover:shadow-lg transition-shadow duration-200'
                     }`}
                     style={{ borderTopColor: registro.color, borderTopWidth: '4px' }} s>
                     <div className="flex gap-1">
@@ -91,8 +93,9 @@ export default function TablaRegistros(props) {
 
                         </button>
 
-                        <Link to={`/registros/camara/${id}/historial/${registro.id}`}>
-                            <button className='text-blue-400  py-1 px-2 rounded font-semibold text-xs hover:bg-blue-100 transition-all duration-200 relative '>
+                        <Link to={`/camaras/camara/${id}/historial/${registro.id}`}>
+                            <button className='text-blue-400  py-1 px-2 rounded font-semibold text-xs hover:bg-blue-100 transition-all duration-200 relative '
+                            onClick={() => handleChangeRegistroSelected(registro)}>
                                 <div className="flex gap-1">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-history" width="16" height="16" viewBox="0 0 24 24" stroke-width="1.5" stroke="#3b82f6" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                         <path stroke="none" d="M0 0h24v24H0z" fill="none" />

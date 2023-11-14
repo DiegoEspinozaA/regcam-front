@@ -4,7 +4,7 @@ import { correcta, incorrecta } from "../Toast/Notificaciones";
 import { useAppContext } from '../AppContext';
 import { Button } from "@material-tailwind/react";
 import { actualizarYSetearRegistros } from "../fetchApi";
-import {actualizarEstadoCamara} from "../fetchApi";
+import { actualizarEstadoCamara } from "../fetchApi";
 export default function EstadoCamara() {
     const { state, dispatch } = useAppContext();
     const estado_actual = state.EstadoCamaraSelectedCamera;
@@ -16,7 +16,14 @@ export default function EstadoCamara() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        const cambio =  estados.find(estado => parseInt(estadoSeleccionado) === estado.id).nombre;
+
+        if(cambio === estado_actual.EstadoActual){
+            incorrecta("El estado ya esta seleccionado.");
+            return;
+        }
         const idCamara = estado_actual.id;
+        
         const datos = {
             idCamara: idCamara,
             nuevoEstadoId: estadoSeleccionado
@@ -45,8 +52,8 @@ export default function EstadoCamara() {
         };
     }, []);
 
-    const [estadoSeleccionado, setEstadoSeleccionado] = useState('');
-    const [colorSeleccionado, setColorSeleccionado] = useState('');
+    const [estadoSeleccionado, setEstadoSeleccionado] = useState(estados[0].id+'');
+    const [colorSeleccionado, setColorSeleccionado] = useState(estados[0].color);
 
     const handleChange = (event) => {
         const dato = estados.find((estado) => estado.id === parseInt(event.target.value, 10));
@@ -106,9 +113,8 @@ export default function EstadoCamara() {
                             </div>
 
                             <div className='mt-4 flex gap-2'>
-                                
+
                                 <select className='border border-gray-900 rounded-lg p-2 outline-none' onChange={handleChange} value={estadoSeleccionado}>
-                                {/* <option selected>Escoge un estado</option> */}
                                     {estados.map((estado) => (
                                         <option key={estado.id} value={estado.id}>{estado.nombre}</option>
                                     ))}
@@ -116,8 +122,8 @@ export default function EstadoCamara() {
                                 </select>
 
                                 <Button className="gap-2 rounded-lg bg-gray-900 justify-center shadow-sm hover:shadow-xl text-gray-200 py-2 px-5  flex items-center transition duration-200 ease-in border w-full" onClick={handleSubmit}>
-                                        Guardar
-                                    </Button>
+                                    Guardar
+                                </Button>
                             </div>
                         </div>
 

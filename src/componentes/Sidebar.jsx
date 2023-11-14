@@ -9,7 +9,16 @@ import {
   Typography,
 } from "@material-tailwind/react";
 
+import { useAppContext } from '../AppContext';
+
 export default function Sidebar() {
+
+  const { state, dispatch } = useAppContext();
+  const handleClickAgregarCamara = () => {
+    dispatch({ type: 'TOGGLE_FORM', form: 'agregarCamarasForm', payload: true });
+  };
+
+
   const location = useLocation();
 
   return (
@@ -34,27 +43,27 @@ export default function Sidebar() {
       <div className="m-4">
         <ul className="mb-4 flex flex-col gap-2 ">
           <li >
-            <Link to="/eventos"
+            <Link to="/registros"
               className='w-full'>
               <Button
-                className={"w-full h-12 flex items-center gap-4 px-4 " + (location.pathname === '/eventos' ? "bg-azul shadow-md hover:shadow-lg hover:shadow-blue-300/40 " : " hover:bg-white/10 active:bg-white/30 bg-transparent shadow-none hover:shadow-none")}
+                className={"w-full h-12 flex items-center gap-4 px-4 focus:outline-none " + (location.pathname === '/registros' ? "bg-azul shadow-md hover:shadow-lg hover:shadow-blue-300/40 " : " hover:bg-white/10 active:bg-white/30 bg-transparent shadow-none hover:shadow-none")}
               >
                 <EventIcon></EventIcon>
                 <Typography
                   color="inherit"
                   className="semibold  text-[15px] capitalize"
                 >
-                  Registrar evento
+                  Registros
                 </Typography>
               </Button>
             </Link>
           </li>
           <li >
-            <Link to="/estados"
+            <Link to="/camaras"
               className='w-full'>
               <Button
 
-                className={"w-full h-12 flex items-center gap-4 px-4 " + (location.pathname === '/estados' ? "bg-azul shadow-md hover:shadow-lg hover:shadow-blue-300/40 " : " hover:bg-white/10 active:bg-white/30 bg-transparent shadow-none hover:shadow-none")}
+                className={"w-full h-12 flex items-center gap-4 px-4 focus:outline-none " + (location.pathname === '/camaras' ? "bg-azul shadow-md hover:shadow-lg hover:shadow-blue-300/40 " : " hover:bg-white/10 active:bg-white/30 bg-transparent shadow-none hover:shadow-none")}
 
               >
                 <CameraAltIcon></CameraAltIcon>
@@ -67,24 +76,48 @@ export default function Sidebar() {
               </Button>
             </Link>
           </li>
+        </ul>
+        <ul className="mb-4 flex flex-col gap-2">
+          <li class="mx-3.5 mt-4 mb-2"><p class="block antialiased font-sans text-sm leading-normal text-white font-black uppercase opacity-75">Opciones de admin</p></li>
           <li >
-            <Link to="/registros"
-              className='w-full'>
-              <Button
-                className={"w-full h-12 flex items-center gap-4 px-4 " + (location.pathname === '/registros' ? "bg-azul shadow-md hover:shadow-lg hover:shadow-blue-300/40 " : " hover:bg-white/10 active:bg-white/30 bg-transparent shadow-none hover:shadow-none")}
-                s
+            <Button
+              className="w-full h-12 flex items-center gap-4 px-4 bg-azul hover:shadow-blue-300/40  hover:bg-white/10 active:bg-white/30 bg-transparent shadow-none hover:shadow-none"
+              onClick={ () => handleClickAgregarCamara()}
+            
+            >
+              <Typography
+                color="inherit"
+                className="semibold  text-[15px] capitalize"
               >
-                <BackupTableIcon></BackupTableIcon>
-                <Typography
-                  color="inherit"
-                  className="semibold text-[15px] capitalize"
-                >
-                  Registros
-                </Typography>
-              </Button>
-            </Link>
+                 Agregar camara
+              </Typography>
+            </Button>
           </li>
+          <li >
+            <Button
+              className="w-full h-12 flex items-center gap-4 px-4 bg-azul hover:shadow-blue-300/40  hover:bg-white/10 active:bg-white/30 bg-transparent shadow-none hover:shadow-none"
 
+            >
+              <Typography
+                color="inherit"
+                className="semibold text-[15px] capitalize"
+              >
+                Agregar estado
+              </Typography>
+            </Button>
+          </li>
+          <li >
+            <Button
+              className="w-full h-12 flex items-center gap-4 px-4 bg-azul hover:shadow-blue-300/40  hover:bg-white/10 active:bg-white/30 bg-transparent shadow-none hover:shadow-none"
+            >
+              <Typography
+                color="inherit"
+                className="semibold text-[15px] capitalize"
+              >
+                Agregar sector
+              </Typography>
+            </Button>
+          </li>
         </ul>
       </div>
     </aside>

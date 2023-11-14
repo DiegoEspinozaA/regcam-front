@@ -1,22 +1,25 @@
 import React, { useEffect, useState } from 'react';
-import Link from '../Apiconf';
 import Nav from '../componentes/Navbar';
+import { motion } from 'framer-motion';
 import TablaRecientes from '../componentes/TablaRecientes';
-import AgregarEvento from '../forms/AgregarEvento';
-import EditarRegistro from '../forms/EditarRegistro';
 import { Button } from "@material-tailwind/react";
 import { useAppContext } from '../AppContext';
+import TabsDefault from '../componentes/TabsDefault';
+import { TbCapture } from 'react-icons/tb';
+import { GiCctvCamera } from 'react-icons/gi';
+import RegistroEstados from '../componentes/RegistroEstados';
 
 const Formulario = () => {
-    const [isLoading, setIsLoading] = useState(true);
-    const [eventos, setEventos] = useState([]);
     const { state, dispatch } = useAppContext();
-    
+
     const handleClickAgregar = () => {
         dispatch({ type: 'TOGGLE_FORM', form: 'showAgregar', payload: true });
         dispatch({ type: 'SET_SELECTED_CAMARA', payload: null });
     };
 
+    const handleTabClick = (value) => {
+        dispatch({ type: 'SET_RECIENTES_ACTIVE_TAB', payload: value })
+    }
 
     const [busqueda, setBusqueda] = useState('');
 
@@ -25,7 +28,7 @@ const Formulario = () => {
             <div className='xl:ml-80 h-[calc(100vh-32px)] my-4 px-4  max-w-screen rounded-xl transition-transform duration-300 xl:translate-x-0 '>
                 <Nav></Nav>
                 <div className='text-sm  text-black flex flex-col justify-center w-full bg-white p-6 shadow-lg rounded-xl  mt-3'>
-                    <p className='text-xl font-bold text-gray-700 font-base mb-5'>Recientes</p>
+                    <p className='text-xl font-bold text-gray-700 font-base mb-5'>{state.recientesActiveTab === 'eventos' ? 'Eventos capturados' : 'Estados de camaras'}</p>
                     <div className='flex'>
                         <div className="flex text-gray-600 justify-between w-full">
                             <div>
@@ -68,8 +71,25 @@ const Formulario = () => {
                                         )}
                                     </div>
                                 </div>
+                                
                             </div>
-                            <div>
+                       
+                            <TabsDefault
+                                activeTab={state.recientesActiveTab}
+                                data={[
+                                    {
+                                        label: "Eventos",
+                                        value: "eventos",
+                                        icon: TbCapture,
+                                    },
+                                    {
+                                        label: "Estados",
+                                        value: "estados",
+                                        icon: GiCctvCamera,
+                                    },
+                                ]}
+                                onTabClick={handleTabClick} ></TabsDefault>
+                            <div className='flex gap-1'>
                                 <Button className="gap-2 bg-gray-900 justify-center shadow-sm hover:shadow-xl text-gray-200 py-2 px-5 rounded flex items-center transition duration-200 ease-in border "
                                     onClick={() => handleClickAgregar()}>
                                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-plus" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="#ffffff" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -84,12 +104,27 @@ const Formulario = () => {
                             </div>
                         </div>
                     </div>
-                  
-                        <div className="mt-5 w-full rounded-lg shadow-md h-[calc(100vh-226px)] border border-gray-200">
-                            <div className="overflow-y-auto scrollbar-container max-h-full bg-transparent">
-                                <TablaRecientes busqueda={busqueda}></TablaRecientes>
-                            </div>
+
+                    <div className="mt-5 w-full rounded-lg shadow-md h-[calc(100vh-245px)] border bg-gray-100 border-gray-200">
+                        <div className="overflow-y-auto scrollbar-container max-h-full bg-transparent mt-1">
+                            {state.recientesActiveTab === "eventos" && 
+                               <motion.div
+                               initial={{ opacity: 0 }}
+                               animate={{ opacity: 1 }}
+                               exit={{ opacity: 0 }}
+                               transition={{ duration: 0.4 }}
+                           ><TablaRecientes busqueda={busqueda}></TablaRecientes>
+                           </motion.div>}
+                            {state.recientesActiveTab !== "eventos" && 
+                            
+                            <motion.div
+                               initial={{ opacity: 0 }}
+                               animate={{ opacity: 1 }}
+                               exit={{ opacity: 0 }}
+                               transition={{ duration: 0.4 }}><RegistroEstados busqueda={busqueda}></RegistroEstados>
+                           </motion.div>}
                         </div>
+                    </div>
                 </div>
             </div>
         </>

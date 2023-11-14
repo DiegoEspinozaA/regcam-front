@@ -55,7 +55,7 @@ export default function Overlay() {
       <div className='p-4  xl:ml-80  h-[calc(100vh-32px)]  max-w-screen rounded-xl transition-transform duration-300 xl:translate-x-0 '>
         <Nav></Nav>
         <div className="text-sm  text-black flex flex-col justify-center w-full bg-white p-6 shadow-lg rounded  mt-3">
-          <p className='text-xl font-bold text-gray-700 font-base mb-5'>Recientes</p>
+          <p className='text-xl font-bold text-gray-700 font-base mb-5'>Registros camara {id}</p>
           <div className='flex'>
             <div className="flex text-gray-600 justify-between w-full">
               <div>
@@ -115,8 +115,8 @@ export default function Overlay() {
             </div>
           </div>
 
-          <div className="mt-5 w-full rounded-lg shadow-md h-[calc(100vh-245px)] border border-gradient from-red-500 via-purple-500 to-blue-500">
-            <div className="overflow-y-auto scrollbar-container bg-white max-h-full mt-1">
+          <div className="mt-5 w-full rounded-lg shadow-md h-[calc(100vh-245px)] border border-gradient bg-gray-100">
+            <div className="overflow-y-auto scrollbar-container  max-h-full mt-1 bg-transparent ">
               <TablaRegistro id={id} registros={datos} busqueda={searchTerm}></TablaRegistro>
             </div>
           </div>

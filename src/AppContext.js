@@ -16,6 +16,10 @@ const initialState = {
   tiposEstados: [],
   selectedCamara: null,
   camaras: [],
+  activeTab: 'cuadricula',
+  recientesActiveTab: 'eventos',
+  agregarCamarasForm: false,
+  historialEstadoCamara: [],
 };
 
 const reducer = (state, action) => {
@@ -46,6 +50,14 @@ const reducer = (state, action) => {
 
     case 'SET_CAMARAS':
       return { ...state, camaras: action.payload };
+
+    case 'SET_ACTIVE_TAB':
+      return { ...state, activeTab: action.payload };
+   
+      case 'SET_RECIENTES_ACTIVE_TAB':
+        return { ...state, recientesActiveTab: action.payload };
+      case 'SET_historialEstadoCamara':
+        return { ...state, historialEstadoCamara: action.payload };
     default:
       return state;
   }

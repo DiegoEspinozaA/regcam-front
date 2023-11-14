@@ -22,6 +22,8 @@ export function fetchData(endpoint) {
 }
 
 
+
+
 export const actualizarRegistro = async (formData) => {
   try {
     const response = await fetch(`${BASE_URL}/actualizarRegistro`, {
@@ -37,14 +39,10 @@ export const actualizarRegistro = async (formData) => {
   } catch (error) {
     console.error('Error en la solicitud HTTP:', error);
     return false;
-
-
   }
-
-
 };
 
-export const actualizarYSetearRegistros = async (formData, dispatch, state) => {
+export const actualizarYSetearRegistros = async (formData, dispatch) => {
   const exito = await actualizarRegistro(formData);
   if (exito) {
     try {
@@ -58,6 +56,39 @@ export const actualizarYSetearRegistros = async (formData, dispatch, state) => {
   return false;
 };
 
+export const fetchCamaras = async () => {
+  const response = await fetch(`${BASE_URL}/camaras`);
+  const data = await response.json();
+  return data;
+}
+
+
+export const fetchHistorialEstados = async () => {
+  const response = await fetch(`${BASE_URL}/historialEstadoCamara`);
+  const data = await response.json();
+  return data;
+}
+
+export const crearCamaras = async (datosParaEnviar, dispatch) => {
+  try {
+    const postResponse = await fetch(`${BASE_URL}/crearCamara`, {
+      method: 'POST',
+      headers: createHeaders(),
+      body: JSON.stringify(datosParaEnviar),
+    });
+
+    if (postResponse.ok) {
+      const actualizado = await fetchCamaras();
+      dispatch({ type: 'SET_CAMARAS', payload: actualizado });
+      return true;
+    } else {
+      return false;
+    }
+  } catch (error) {
+    console.error('Error en la solicitud HTTP:', error);
+    return false;
+  }
+}
 
 export const actualizarEstadoCamara = async (formData, dispatch) => {
   try {
@@ -66,10 +97,16 @@ export const actualizarEstadoCamara = async (formData, dispatch) => {
       headers: createHeaders(),
       body: JSON.stringify(formData),
     });
+
     if (postResponse.ok) {
       const registrosResponse = await fetch(BASE_URL + '/camaras');
       const registrosData = await registrosResponse.json();
+
+      const historialEstados = await fetch(BASE_URL + '/historialEstadoCamara');
+      const historialEstadosData = await historialEstados.json();
+      
       dispatch({ type: 'SET_CAMARAS', payload: registrosData });
+      dispatch({ type: 'SET_historialEstadoCamara', payload: historialEstadosData });
       dispatch({ type: 'SET_ESTADO_CAMARA_SELECCIONADA', payload: registrosData.find((camara) => camara.id === parseInt(formData.idCamara, 10)) });
 
       return true;

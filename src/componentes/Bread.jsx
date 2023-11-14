@@ -11,12 +11,20 @@ export default function Bread() {
     const isLastCrumb = index === pathSegments.length - 1;
     const anterior = pathSegments[index - 1];
     const actual = pathSegments[index];
-    if (anterior === 'camara') {
-      if (!isNaN(parseInt(actual))) {
-        crumb = 'camara ' + actual
+
+    if(anterior === 'historialCamara'){
+      if(!isNaN(parseInt(actual))){
+        crumb = 'historial camara ' + actual
       }
     }
 
+    if (anterior === 'camara') {
+      if (!isNaN(parseInt(actual))) {
+        crumb = 'registros camara ' + actual
+      }
+    }
+
+  
     if (anterior === 'historial') {
       if (!isNaN(parseInt(actual))) {
         crumb = 'historial ' + actual
@@ -43,6 +51,9 @@ export default function Bread() {
                     {splitCamelCase(crumb).join(' ') === 'historial'
                       ?
                       '' : <>
+                      {splitCamelCase(crumb).join(' ') === 'historial Camara'
+                      
+                      ? '' : <>
                         <div className="flex align-center items-center">
 
                           {splitCamelCase(crumb).join(' ')}
@@ -52,6 +63,8 @@ export default function Bread() {
                         </div>
 
                       </>
+                      }
+                     </> 
                     }
                   </>
                 }

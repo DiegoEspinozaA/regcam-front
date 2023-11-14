@@ -11,7 +11,7 @@ function AgregarEvento() {
 
     const [formData, setFormData] = useState({
         tipo: eventos.length > 0 ? eventos[0].tipo : '',
-        responsable: 'Diego Espinoza',
+        responsable: 'Operario 1',
         fecha: '',
         descripcion: '',
         id_camara: camaraSeleccionada ? camaraSeleccionada : '',
@@ -20,7 +20,7 @@ function AgregarEvento() {
     const handleReset = () => {
         setFormData({
             tipo: eventos.length > 0 ? eventos[0].tipo : '',
-            responsable: 'Diego Espinoza',
+            responsable: 'Operario 1',
             fecha: '',
             descripcion: '',
             id_camara: camaraSeleccionada ? camaraSeleccionada : '',
@@ -41,13 +41,17 @@ function AgregarEvento() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log(formData)
+        const idExiste = state.camaras.some(camara => camara.id === parseInt(formData.id_camara));
+        if(!idExiste){
+            incorrecta("La camara que ingreso no existe");
+            return;
+        }
 
         const exito = await agregarYSetearRegistros(formData, dispatch);
         if (exito) {
             correcta("Registro actualizado exitosamente");
         } else {
-            incorrecta("Error al actualizar el registro");
+            incorrecta("Error al agregar el registro");
         }
     };
 

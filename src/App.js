@@ -17,6 +17,7 @@ import Link from './Apiconf';
 import AgregarEvento from './forms/AgregarEvento';
 import HistorialCamara from './pages/HistorialCamara';
 import EstadoCamara from './forms/EstadoCamara';
+import AgregarCamara from './forms/AgregarCamara';
 function App() {
   const { state, dispatch } = useAppContext();
 
@@ -35,12 +36,16 @@ function App() {
 
         const camarasResponse = await fetch(Link + '/camaras');
         const camarasData = await camarasResponse.json();
-
         
+        const response = await fetch(Link + '/historialEstadoCamara');
+        const data = await response.json();
+
         dispatch({ type: 'SET_CAMARAS', payload: camarasData });
         dispatch({ type: 'SET_TIPOS_ESTADOS', payload: tiposEstadosData });
         dispatch({ type: 'SET_REGISTROS', payload: registrosData });
         dispatch({ type: 'TOGGLE_EVENTOS', payload: tiposEventosData });
+        dispatch({ type: 'SET_historialEstadoCamara', payload: data });
+        
       } catch (error) {
         console.error(error);
       }
@@ -57,6 +62,7 @@ function App() {
       {state.showAgregarInformacionForm && <EditarRegistro />}
       {state.showAgregar && <AgregarEvento/>}
       {state.showEstadoCamaraForm && <EstadoCamara />}
+      {state.agregarCamarasForm && <AgregarCamara></AgregarCamara>}
       <BrowserRouter>
         <div className="flex">
           <Sidebar />
@@ -80,13 +86,13 @@ function App() {
               }}
             />
             <Routes>
-              <Route path="/" element={<Navigate to="/eventos" replace />} />
-              <Route path="/eventos" element={<Formulario />} />
-              <Route path="/estados" element={<Estados />} />
-              <Route path="/registros" element={<Registros />} />
-              <Route path="/registros/camara/:id" element={<Registro />} />
-              <Route path="/registros/camara/:id_camara/historial/:id_registro" element={<Historial />} />
-              <Route path="/estados/historialCamara/:id_camara" element={<HistorialCamara />} />
+              <Route path="/" element={<Navigate to="/registros" replace />} />
+              <Route path="/registros" element={<Formulario />} />
+              <Route path="/registros/historial/:id_registro" element={<Historial />} />
+              <Route path="/camaras" element={<Estados />} />
+              <Route path="/camaras/camara/:id" element={<Registro />} />
+              <Route path="/camaras/camara/:id_camara/historial/:id_registro" element={<Historial />} />
+              <Route path="/camaras/historialCamara/:id_camara" element={<HistorialCamara />} />
             </Routes>
           </div>
         </div>
